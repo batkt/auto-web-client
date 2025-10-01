@@ -1,0 +1,52 @@
+{
+  "timeline": [
+    {
+      "id": 1,
+      "year": "2003",
+      "title": "Humble Beginnings",
+      "description": "Started as a small group of 12 families meeting in a living room, sharing meals and studying scripture together."
+    },
+    {
+      "id": 2,
+      "year": "2007",
+      "title": "First Building",
+      "description": "Moved into our first church building, welcoming 150 members and launching our first children's ministry."
+    },
+    {
+      "id": 3,
+      "year": "2012",
+      "title": "Community Outreach",
+      "description": "Launched our first community outreach programs, including food banks and youth mentorship initiatives."
+    },
+    {
+      "id": 4,
+      "year": "2017",
+      "title": "Multiple Campuses",
+      "description": "Expanded to serve multiple locations across the city, reaching over 1,000 families in our community."
+    },
+    {
+      "id": 5,
+      "year": "2020",
+      "title": "Digital Innovation",
+      "description": "Adapted to serve our community online, reaching families worldwide and launching virtual small groups."
+    },
+    {
+      "id": 6,
+      "year": "2021",
+      "title": "Growing Together 1",
+      "description": "Continuing to grow as a family of faith, serving our city and making a difference in thousands of lives."
+    },
+    {
+      "id": 7,
+      "year": "2022",
+      "title": "Growing Together 2",
+      "description": "Continuing to grow as a family of faith, serving our city and making a difference in thousands of lives."
+    },
+    {
+      "id": 8,
+      "year": "Today",
+      "title": "Growing Together 3",
+      "description": "Continuing to grow as a family of faith, serving our city and making a difference in thousands of lives."
+    }
+  ]
+}

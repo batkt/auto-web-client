@@ -1,0 +1,74 @@
+{
+  "homeTranslation": {
+    "title": "Гэр"
+  },
+  "blogTranslation": {
+    "title": "Мэдээ",
+    "allBlogs": "Бүх нийтлэл",
+    "search": "Нийтлэл хайх...",
+    "noBlogs": "Нийтлэл олдсонгүй",
+    "noResults": "Хайлтын үр дүн олдсонгүй",
+    "relatedPosts": "Холбоотой нийтлэлүүд",
+    "relatedPostsDescription": "Холбоотой нийтлэлүүд",
+    "readMore": "Дэлгэрэнгүй унших",
+    "backToBlog": "Блог руу буцах",
+    "home": "Нүүр хуудас",
+    "notFoundBlog": "Нийтлэл олдсонгүй",
+    "notFoundBlogDescription": "Нийтлэл олдсонгүй. Магадгүй устгагдсан эсвэл URL буруу байж болно.",
+    "availablePosts": "Үзэх боломжтой нийтлэлүүд"
+  },
+  "branchesTranslation": {
+    "title": "Салбарууд",
+    "moreDetails": "Дэлгэрэнгүй",
+    "viewOnMap": "Газрыг зурагт харах",
+    "contactInfo": "Холбоо барих мэдээлэл",
+    "services": "Үйлчилгээнүүд",
+    "location": "Хаяг, байршил",
+    "getDirection": "Зам заалгах",
+    "callNow": "Яг одоо залгах",
+    "imageNotFound": "Зураг олдсонгүй"
+  },
+  "contactTranslation": {
+    "title": "Холбоо барих",
+    "sendUsMessage": "Бидэнд захидал илгээх",
+    "firstName": "Нэр",
+    "enterFirstName": "Нэр оруулна уу",
+    "firstNameRequired": "Нэр оруулах шаардлагатай",
+    "lastName": "Овог",
+    "enterLastName": "Овог оруулна уу",
+    "lastNameRequired": "Овог оруулах шаардлагатай",
+    "subject": "Гарчиг",
+    "enterSubject": "Гарчиг оруулна уу",
+    "subjectRequired": "Гарчиг оруулах шаардлагатай",
+    "phoneNumber": "Утасны дугаар",
+    "enterPhoneNumber": "Утасны дугаар оруулна уу",
+    "phoneNumberRequired": "Утасны дугаар оруулах шаардлагатай",
+    "emailAddress": "Имэйл хаяг",
+    "enterEmailAddress": "Имэйл хаяг оруулна уу",
+    "emailAddressRequired": "Имэйл хаяг оруулах шаардлагатай",
+    "message": "Мессеж",
+    "enterMessage": "Мессеж оруулна уу",
+    "messageRequired": "Мессеж оруулах шаардлагатай",
+    "messageLength": "Мессеж 10-аас дээш тэмдэг агуулсан байх шаардлагатай",
+    "invalidEmail": "Имэйл хаяг буруу байна",
+    "sending": "Илгээж байна...",
+    "sendMessage": "Илгээх",
+    "messageSentSuccessfully": "Мессеж амжилттай илгээгдлээ",
+    "messageSentFailed": "Мессеж илгээхэд алдаа гарлаа"
+  },
+  "footerTranslation": {
+    "quickLinks": "Холбоос",
+    "followUs": "Сошиал сувгууд",
+    "copyright": "Copyright © {year} Монгол Христийн Сүм",
+    "contactInfo": "Бидэнтэй холбогдох"
+  },
+  "donateTranslation": {
+    "title": "Хандив",
+    "bank": "Банк",
+    "bankName": "Банкны нэр",
+    "accountNumber": "Дансны дугаар",
+    "iban": "IBAN",
+    "accountName": "Дансны нэр",
+    "copy": "Хуулах"
+  }
+}

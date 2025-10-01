@@ -1,0 +1,77 @@
+{
+  "homeTranslation": {
+    "title": "Home"
+  },
+  "blogTranslation": {
+    "title": "Blog",
+    "allBlogs": "All Blogs",
+    "search": "Search Blogs...",
+    "noBlogs": "No Blogs found",
+    "noResults": "No results found",
+    "relatedPosts": "Related Posts",
+    "relatedPostsDescription": "Related Posts",
+    "readMore": "Read More",
+    "backToBlog": "Back to Blog",
+    "home": "Home",
+    "notFoundBlog": "Not found blog",
+    "notFoundBlogDescription": "Not found blog details. Maybe it's deleted or not published.",
+    "availablePosts": "Available Posts"
+  },
+  "branchesTranslation": {
+    "title": "Branches",
+    "moreDetails": "More Details",
+    "viewOnMap": "View on Map",
+    "contactInfo": "Contact Information",
+    "services": "Services",
+    "location": "Location",
+    "getDirection": "Get Direction",
+    "callNow": "Call Now",
+    "imageNotFound": "Image not found"
+  },
+  "contactTranslation": {
+    "title": "Contact",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Message",
+    "sendMessage": "Send Message",
+    "firstName": "First Name",
+    "enterFirstName": "Enter your first name",
+    "firstNameRequired": "First name is required",
+    "lastName": "Last Name",
+    "enterMessage": "Enter your message here...",
+    "messageRequired": "Message is required",
+    "enterLastName": "Enter your last name",
+    "lastNameRequired": "Last name is required",
+    "subject": "Subject",
+    "enterSubject": "Enter your subject",
+    "subjectRequired": "Subject is required",
+    "phoneNumber": "Phone Number",
+    "enterPhoneNumber": "Enter your phone number",
+    "phoneNumberRequired": "Phone number is required",
+    "emailAddress": "Email Address",
+    "enterEmailAddress": "Enter your email address",
+    "emailAddressRequired": "Email address is required",
+    "sendUsMessage": "Send us a Message",
+    "messageLength": "Message must be at least 10 characters long",
+    "invalidEmail": "Invalid email address",
+    "sending": "Sending...",
+    "messageSentSuccessfully": "Message sent successfully",
+    "messageSentFailed": "Message sending failed"
+  },
+  "footerTranslation": {
+    "quickLinks": "Quick Links",
+    "followUs": "Social Media",
+    "copyright": "Copyright © 2025 Mongolian Christian Church",
+    "contactInfo": "Contact Info"
+  },
+  "donateTranslation": {
+    "title": "Donate",
+    "bank": "Bank",
+    "bankName": "Bank Name",
+    "accountNumber": "Account Number",
+    "iban": "IBAN",
+    "accountName": "Account Name",
+    "copy": "Copy"
+  }
+}

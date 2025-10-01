@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to index the site
+Allow: /about
+Allow: /blog
+Allow: /branches
+Allow: /contact
+Allow: /donate
+Allow: /image
+
+# Block unnecessary files
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://yourdomain.mn/sitemap.xml
+
+# Crawl delay (optional - 1 second)
+Crawl-delay: 1 
