@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import BlurText from '../ui/blur-text';
-import { HomeHeroData, LanguageKey } from '@/lib/types/data.types';
+import React from "react";
+import { HomeHeroData, LanguageKey } from "@/lib/types/data.types";
+import { getImageUrl } from "@/lib/utils";
+import Image from "next/image";
 
 const HeroSection = ({
   lang,
@@ -12,23 +13,49 @@ const HeroSection = ({
   data: HomeHeroData;
 }) => {
   return (
-    <div className="w-full relative max-h-[800px] h-[calc(100vh-120px)]">
-      {/* Parallax overlay with gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/20 to-black/60"></div>
+    <div
+      style={{
+        backgroundImage: `url(${getImageUrl(data.backgroundImage)})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="grid items-center gap-10 grid-cols-1 text-center py-16 md:min-h-[calc(100vh-5rem)] md:grid-cols-2 md:gap-16 lg:gap-24 md:py-12">
+          {/* Text content */}
+          <div className="order-2 md:order-1 text-left">
+            <h1 className="text-white font-extrabold leading-tight">
+              <span className="block text-4xl sm:text-5xl lg:text-7xl whitespace-normal">
+                {data.mainTitle?.[lang]}
+              </span>
+              <span className="mt-1 block text-4xl sm:text-5xl lg:text-7xl text-[#0888A3] whitespace-normal">
+                {data.secondaryTitle?.[lang]}
+              </span>
+            </h1>
 
-      {/* Main content with parallax */}
-      <div className="absolute z-[1] inset-0 flex flex-col items-center pt-40 sm:pt-56 justify-start gap-y-8 sm:gap-y-14">
-        <BlurText
-          text={data.mainTitle?.[lang]}
-          delay={150}
-          animateBy="words"
-          direction="top"
-          className="max-w-md font-extrabold text-white text-5xl sm:text-6xl sm:max-w-4xl px-6 text-center leading-14 sm:leading-16 flex justify-center drop-shadow-2xl"
-        />
+            <p className="mt-6 max-w-xl text-base sm:text-lg font-semibold text-white/90 whitespace-normal">
+              {data.description?.[lang]}
+            </p>
 
-        <button className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
-          {data.ctaText?.[lang]}
-        </button>
+            <button className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#0888A3] whitespace-normal">
+              {data.ctaText?.[lang]}
+            </button>
+          </div>
+
+          {/* Image content */}
+          <div className="flex items-center justify-center order-1 md:order-2">
+            <Image
+              src={getImageUrl(data.productImage)}
+              alt="Featured product"
+              width={680}
+              height={600}
+              priority
+              sizes="(max-width: 768px) 85vw, (max-width: 1280px) 50vw, 680px"
+              className="h-auto object-contain drop-shadow-2xl w-[min(85vw,420px)] mt-6 md:mt-0 md:w-[min(90vw,680px)]"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

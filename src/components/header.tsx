@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { cn, getImageUrl } from '@/lib/utils';
-import { Link } from '@/i18n/navigation';
-import React, { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { FaXmark } from 'react-icons/fa6';
-import HeaderItems from './header-item';
-import { HeaderData, LanguageKey } from '@/lib/types/data.types';
-import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { cn, getImageUrl } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { FaXmark } from "react-icons/fa6";
+import HeaderItems from "./header-item";
+import { HeaderData, LanguageKey } from "@/lib/types/data.types";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const Header = ({
   data,
@@ -22,7 +22,7 @@ const Header = ({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const nowDate = new Date();
-  const t = useTranslations('footerTranslation');
+  const t = useTranslations("footerTranslation");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +34,7 @@ const Header = ({
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Close mobile menu when scrolling
     const handleScrollCloseMenu = () => {
@@ -43,11 +43,11 @@ const Header = ({
       }
     };
 
-    window.addEventListener('scroll', handleScrollCloseMenu);
+    window.addEventListener("scroll", handleScrollCloseMenu);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', handleScrollCloseMenu);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScrollCloseMenu);
     };
   }, [isMobileMenuOpen]);
 
@@ -55,25 +55,25 @@ const Header = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (isMobileMenuOpen && !target.closest('.mobile-menu-container')) {
+      if (isMobileMenuOpen && !target.closest(".mobile-menu-container")) {
         setIsMobileMenuOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
@@ -81,7 +81,7 @@ const Header = ({
     <header>
       <div
         className={cn(
-          'absolute top-0 inset-x-0 h-16 md:h-20 z-10 transition-all duration-200',
+          "absolute top-0 inset-x-0 h-16 md:h-20 z-10 transition-all duration-200",
           className
         )}
       >
@@ -95,8 +95,8 @@ const Header = ({
       </div>
       <div
         className={cn(
-          'fixed top-0 z-10 w-full h-16 md:h-20 transition-all duration-200 bg-white shadow-sm',
-          isScrolled ? 'translate-y-0' : '-translate-y-full'
+          "fixed top-0 z-10 w-full h-16 md:h-20 transition-all duration-200 bg-black text-white shadow-sm",
+          isScrolled ? "translate-y-0" : "-translate-y-full"
         )}
       >
         <HeaderItems
@@ -116,8 +116,8 @@ const Header = ({
       {/* Mobile Menu */}
       <div
         className={cn(
-          'fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-30 transform transition-transform duration-300 ease-in-out md:hidden mobile-menu-container',
-          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          "fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-30 transform transition-transform duration-300 ease-in-out md:hidden mobile-menu-container",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
         <div className="flex flex-col h-full">
@@ -162,7 +162,7 @@ const Header = ({
           {/* Mobile Menu Footer */}
           <div className="p-6 border-t border-border">
             <div className="text-sm text-muted-foreground">
-              {t('copyright', { year: nowDate.getFullYear() })}
+              {t("copyright", { year: nowDate.getFullYear() })}
             </div>
           </div>
         </div>

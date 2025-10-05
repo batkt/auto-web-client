@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { AboutHeroData, LanguageKey } from '@/lib/types/data.types';
-import React from 'react';
-import { getClientImageUrl } from '@/lib/utils';
+import { AboutHeroData, LanguageKey } from "@/lib/types/data.types";
+import React from "react";
+import { getClientImageUrl } from "@/lib/utils";
 
 const HeroSection = ({
   lang,

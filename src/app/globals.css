@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,7 +50,7 @@
   --card-foreground: oklch(0.2686 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2686 0 0);
-  --primary: oklch(0.699 0.1842 43.0967);
+  --primary: oklch(0.5794 0.1031 218.62);
   --primary-foreground: oklch(0 0 0);
   --secondary: oklch(0.967 0.0029 264.5419);
   --secondary-foreground: oklch(0.4461 0.0263 256.8018);
@@ -62,7 +62,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(0.9276 0.0058 264.5313);
   --input: oklch(0.9276 0.0058 264.5313);
-  --ring: oklch(0.7686 0.1647 70.0804);
+  --ring: oklch(0.5794 0.1031 218.62);
   --chart-1: oklch(0.7686 0.1647 70.0804);
   --chart-2: oklch(0.6658 0.1574 58.3183);
   --chart-3: oklch(0.5553 0.1455 48.9975);
@@ -256,7 +256,7 @@
   font-size: 0.875rem; /* text-sm */
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .tiptap pre {
@@ -275,7 +275,7 @@
   background: transparent;
   color: inherit;
   padding: 0;
-  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .tiptap ol {
@@ -291,7 +291,7 @@
 }
 
 .tiptap ol li::before {
-  content: counter(custom-counter) '.';
+  content: counter(custom-counter) ".";
   position: absolute;
   left: 0;
   top: 0.125rem;
@@ -312,7 +312,7 @@
 }
 
 .tiptap ul li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0.575rem;

@@ -1,11 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion, easeOut } from 'framer-motion';
-import BlogCard from '../blog/blog-card';
-import { Blog } from '@/lib/types/blog.types';
-import { LanguageKey } from '@/lib/types/data.types';
-import { HomeBlogData } from '@/lib/types/data.types';
+import React from "react";
+import { motion, easeOut } from "framer-motion";
+import BlogCard from "../blog/blog-card";
+import { Blog } from "@/lib/types/blog.types";
+import { LanguageKey, HomeBlogData } from "@/lib/types/data.types";
+import { getImageUrl } from "@/lib/utils";
+import Image from "next/image";
 
 const BlogSection = ({
   lang,
@@ -16,84 +17,61 @@ const BlogSection = ({
   data: HomeBlogData;
   blogs: Blog[];
 }) => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: easeOut,
-      },
-    },
-  };
-
-  const cardVariants = {
+  const card = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: easeOut,
-      },
+      transition: { duration: 0.8, ease: easeOut },
     },
   };
 
-  return (
-    <motion.div
-      className="w-full py-20 bg-muted"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariants}
-    >
-      <div className="container px-6 max-w-6xl mx-auto space-y-6">
-        <motion.h2
-          className="text-3xl sm:text-4xl text-center font-medium"
-          variants={itemVariants}
-        >
-          {data?.title?.[lang]}
-        </motion.h2>
-        <motion.p
-          className="text-xl text-center text-muted-foreground max-w-3xl mx-auto leading-relaxed"
-          variants={itemVariants}
-        >
-          {data?.description?.[lang]}
-        </motion.p>
+  const bgUrl = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "";
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10"
-          variants={containerVariants}
-        >
-          {blogs.map((blog) => {
-            return (
-              <motion.div
-                key={blog._id}
-                variants={cardVariants}
-                whileHover={{
-                  y: -8,
-                  transition: { duration: 0.3, ease: 'easeOut' },
-                }}
-              >
-                <BlogCard blog={blog} lang={lang} />
-              </motion.div>
-            );
-          })}
-        </motion.div>
+  return (
+    <section id="about" className="relative w-full overflow-hidden bg-[#111]">
+      {bgUrl && (
+        <>
+          <Image
+            src={bgUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover object-center pointer-events-none select-none opacity-90"
+          />
+        </>
+      )}
+
+      <div className="w-full relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 h-auto pt-12 sm:pt-12 pb-12 sm:pb-12 md:pb-12 lg:pb-12">
+        <h2 className="text-center font-semibold text-white text-2xl sm:text-3xl md:mt-10 md:text-4xl lg:text-5xl">
+          {data?.title?.[lang]}
+        </h2>
+
+        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+          {data?.secondaryTitle?.[lang]}
+        </h3>
+
+        <p className="mx-auto text-center text-white/90 leading-relaxed mt-4 text-base sm:text-lg max-w-2xl md:mt-6 md:text-lg md:max-w-3xl lg:text-xl">
+          {data?.description?.[lang]}
+        </p>
+
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8 lg:gap-10">
+          {blogs.map((blog) => (
+            <motion.div
+              key={blog._id}
+              variants={card}
+              whileHover={{
+                y: -8,
+                transition: { duration: 0.28, ease: "easeOut" },
+              }}
+            >
+              <BlogCard blog={blog} />
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </motion.div>
+    </section>
   );
 };
 

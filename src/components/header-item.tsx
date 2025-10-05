@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { cn, getImageUrl } from '@/lib/utils';
-import { Link } from '@/i18n/navigation';
-import { Button } from './ui/button';
-import { FaBars } from 'react-icons/fa6';
-import { HeaderData, LanguageKey } from '@/lib/types/data.types';
-import Image from 'next/image';
-import LanguageSelector from './language-selector';
+import { cn, getImageUrl } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import { Button } from "./ui/button";
+import { FaBars } from "react-icons/fa6";
+import { HeaderData, LanguageKey } from "@/lib/types/data.types";
+import Image from "next/image";
+import LanguageSelector from "./language-selector";
 
 interface HeaderItemsProps {
   className?: string;
@@ -26,11 +26,11 @@ const HeaderItems = ({
   dark = true,
 }: HeaderItemsProps) => {
   return (
-    <div className={cn('h-full container max-w-6xl px-6 mx-auto', className)}>
+    <div className={cn("h-full container max-w-6xl px-6 mx-auto", className)}>
       <div className="flex justify-between items-center size-full">
         <div className="uppercase font-black text-2xl">
           <Image
-            src={getImageUrl(data.logoImage)}
+            src={getImageUrl(data?.logoImage)}
             alt="logo"
             width={100}
             height={100}

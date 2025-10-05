@@ -1,14 +1,14 @@
-import type { Metadata, ResolvingMetadata } from 'next';
-import Community from '@/components/about/community-section';
-import HeroSection from '@/components/about/cover-section';
-import LocationSection from '@/components/about/location-section';
-import SectionSix from '@/components/about/section-six';
-import Timeline from '@/components/about/timeline';
-import SectionOne from '@/components/about/section-one';
-import SectionTwo from '@/components/about/section-two';
-import SectionThree from '@/components/about/section-three';
-import SectionFour from '@/components/about/section-four';
-import { getRequest } from '@/lib/http-client';
+import type { Metadata, ResolvingMetadata } from "next";
+import Community from "@/components/about/community-section";
+import HeroSection from "@/components/about/cover-section";
+import LocationSection from "@/components/about/location-section";
+import SectionSix from "@/components/about/section-six";
+import Timeline from "@/components/about/timeline";
+import SectionOne from "@/components/about/section-one";
+import SectionTwo from "@/components/about/section-two";
+import SectionThree from "@/components/about/section-three";
+import SectionFour from "@/components/about/section-four";
+import { getRequest } from "@/lib/http-client";
 import {
   AboutHeroData,
   AboutLocationData,
@@ -21,8 +21,8 @@ import {
   LanguageKey,
   PageDetailData,
   SectionData,
-} from '@/lib/types/data.types';
-import { getImageUrl } from '@/lib/utils';
+} from "@/lib/types/data.types";
+import { getImageUrl } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -39,10 +39,10 @@ export async function generateMetadata(
   const { locale } = await props.params;
   const lang = locale as LanguageKey;
 
-  const pageResponse = await getRequest<PageDetailData>('/pages/detail/about');
+  const pageResponse = await getRequest<PageDetailData>("/pages/detail/about");
   const pageData = pageResponse.data;
 
-  const heroResponse = await getRequest<SectionData>('/sections/about-hero');
+  const heroResponse = await getRequest<SectionData>("/sections/about-hero");
   const heroData = heroResponse.data.data as AboutHeroData;
   const parentMetadata = await parent;
 
@@ -51,16 +51,16 @@ export async function generateMetadata(
     title: title,
     description: pageData.description?.[lang],
     keywords: [
-      'Монгол Христийн Сүм',
-      'хандив',
-      'хандив өгөх',
-      'банкны шилжүүлэг',
-      'QPay',
-      'SocialPay',
-      'тусламж',
-      'итгэл найдвар',
-      'сайн үйлс',
-      'нийгэмд үйлчлэх',
+      "Монгол Христийн Сүм",
+      "хандив",
+      "хандив өгөх",
+      "банкны шилжүүлэг",
+      "QPay",
+      "SocialPay",
+      "тусламж",
+      "итгэл найдвар",
+      "сайн үйлс",
+      "нийгэмд үйлчлэх",
       ...(pageData?.keywords || []),
     ],
     openGraph: {
@@ -81,39 +81,39 @@ export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   const lang = locale as LanguageKey;
 
-  const heroResponse = await getRequest<SectionData>('/sections/about-hero');
+  const heroResponse = await getRequest<SectionData>("/sections/about-hero");
   const heroData = heroResponse.data.data as AboutHeroData;
 
   const missionResponse = await getRequest<SectionData>(
-    '/sections/about-mission'
+    "/sections/about-mission"
   );
   const missionData = missionResponse.data.data as AboutMissionData;
   const welcomeResponse = await getRequest<SectionData>(
-    '/sections/about-welcome'
+    "/sections/about-welcome"
   );
   const welcomeData = welcomeResponse.data.data as AboutWelcomeData;
   const structureResponse = await getRequest<SectionData>(
-    '/sections/about-church-structure'
+    "/sections/about-church-structure"
   );
   const structureData = structureResponse.data.data as AboutStructureData;
 
   const storyResponse = await getRequest<SectionData>(
-    '/sections/about-our-story'
+    "/sections/about-our-story"
   );
   const storyData = storyResponse.data.data as AboutStoryData;
 
   const weBelieveResponse = await getRequest<SectionData>(
-    '/sections/about-what-we-believe'
+    "/sections/about-what-we-believe"
   );
   const weBelieveData = weBelieveResponse.data.data as AboutWeBelieveData;
 
   const ourCommunityResponse = await getRequest<SectionData>(
-    '/sections/about-our-community'
+    "/sections/about-our-community"
   );
   const ourCommunityData = ourCommunityResponse.data
     .data as AboutOurCommunityData;
 
-  const locationResponse = await getRequest<SectionData>('/sections/about-map');
+  const locationResponse = await getRequest<SectionData>("/sections/about-map");
   const locationData = locationResponse.data.data as AboutLocationData;
 
   return (

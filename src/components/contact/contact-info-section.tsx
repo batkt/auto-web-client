@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { ContactInfoData, LanguageKey } from '@/lib/types/data.types';
-import React from 'react';
-import { FaClock, FaEnvelope, FaLocationDot, FaPhone } from 'react-icons/fa6';
+import { ContactInfoData, LanguageKey } from "@/lib/types/data.types";
+import React from "react";
+import { FaEnvelope, FaLocationDot, FaPhone } from "react-icons/fa6";
 
 const ContactInfoSection = ({
   data,
@@ -14,7 +14,7 @@ const ContactInfoSection = ({
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl font-bold mb-6">{data.title?.[lang]}</h2>
+        <h2 className="text-3xl  font-bold mb-6">{data.title?.[lang]}</h2>
         <p className="text-lg text-muted-foreground mb-8">
           {data.description?.[lang]}
         </p>
@@ -51,24 +51,7 @@ const ContactInfoSection = ({
           </div>
         </div>
 
-        <div className="flex items-start gap-4">
-          <div className="p-3 bg-muted rounded-full">
-            <FaClock className="size-6 text-muted-foreground" />
-          </div>
-          <div>
-            <h3 className="font-semibold text-lg mb-1">
-              {data.services.name?.[lang]}
-            </h3>
-            {data.services.data.map((service, index) => (
-              <React.Fragment key={`service-${index}`}>
-                <p>{service.name?.[lang]}</p>
-                <p className="text-muted-foreground mb-2">
-                  {service.description?.[lang]}
-                </p>
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
+        <div className="flex items-start gap-4"></div>
       </div>
     </div>
   );

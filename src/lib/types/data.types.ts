@@ -1,4 +1,4 @@
-export type LanguageKey = 'mn' | 'en';
+export type LanguageKey = "mn" | "en";
 
 export type MultiLanguageString = {
   [key in LanguageKey]?: string;
@@ -26,27 +26,14 @@ export interface SectionData {
   key: string;
 }
 
-export type Stat = {
-  servedOver: {
-    value?: number;
-    title: MultiLanguageString;
-  };
-  donate: {
-    title: MultiLanguageString;
-    desc: MultiLanguageString;
-  };
-  volunteer: {
-    title: MultiLanguageString;
-    desc: MultiLanguageString;
-  };
-};
-
 export type HomeHeroData = {
-  backgroundImages: string[];
+  backgroundImage: string;
+  productImage: string;
+  description: MultiLanguageString;
   mainTitle: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
   ctaText: MultiLanguageString;
   ctaUrl: string;
-  stats: Stat;
 };
 
 export type HeaderData = {
@@ -56,30 +43,64 @@ export type HeaderData = {
     path: string;
   }[];
 };
+export type HomeMissionItem = {
+  stat1?: string;
+  stat2?: string;
+  stat3?: string;
+  desc: MultiLanguageString;
+};
 
-export type HomeMissionData = BaseSectionDetailData;
+export type HomeMissionData = {
+  title: MultiLanguageString;
+  stats?: MultiLanguageString;
+  backgroundImage: string;
+  description: MultiLanguageString;
+  items: HomeMissionItem[];
+};
 
-export type HomeGalleryData = BaseSectionDetailData & {
-  images: string[];
+export type Quotes = {
+  proImage: string;
+  proName: string;
+  proComment: string;
+};
+
+export type HomeGalleryData = {
+  backgroundImage: string;
+  title: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
+  item: Quotes[];
 };
 
 export type HomeHelpData = {
   title: MultiLanguageString;
-  subTitle?: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
+  location: MultiLanguageString;
+  description: MultiLanguageString;
   backgroundImage: string;
-  items: BaseSectionDetailData[];
+
+  address: MultiLanguageString;
+  phone: string;
+  email: string;
+};
+
+export type Products = {
+  productImage: string;
+  name: MultiLanguageString;
 };
 
 export type HomeQuoteData = BaseSectionDetailData & {
   backgroundImage: string;
-  items: {
-    quote: MultiLanguageString;
-    author: MultiLanguageString;
-    role?: MultiLanguageString;
-  }[];
+  title: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
+  items: Products[];
 };
 
-export type HomeBlogData = BaseSectionDetailData;
+export type HomeBlogData = {
+  title: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
+  description: MultiLanguageString;
+  backgroundImage: string;
+};
 
 export type AboutHeroData = BaseSectionDetailData & {
   image: string;
@@ -140,16 +161,11 @@ export type ContactHeroData = BaseSectionDetailData & {
 };
 
 export type ContactInfoData = BaseSectionDetailData & {
+  backgroundImage: string;
+
   address: MultiLanguageString;
   phone: string;
   email: string;
-  services: {
-    name: MultiLanguageString;
-    data: {
-      name: MultiLanguageString;
-      description: MultiLanguageString;
-    }[];
-  };
 };
 
 export type FooterData = {
