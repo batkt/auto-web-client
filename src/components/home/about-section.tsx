@@ -19,7 +19,7 @@ const AboutSection = ({
   const bg = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "";
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section id="stats" className="relative w-full overflow-hidden">
       {/* BG image */}
       {bg && (
         <>

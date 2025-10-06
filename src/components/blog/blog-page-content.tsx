@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import BlogCard from '@/components/blog/blog-card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { FaMagnifyingGlass, FaArrowRight, FaArrowLeft } from 'react-icons/fa6';
-import { Category, type Blog } from '@/lib/types/blog.types';
-import { LanguageKey } from '@/lib/types/data.types';
-import { useRouter } from 'next/navigation';
-import { queryStringBuilder } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+import React, { useState, useRef, useEffect } from "react";
+import BlogCard from "@/components/blog/blog-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { FaMagnifyingGlass, FaArrowRight, FaArrowLeft } from "react-icons/fa6";
+import { Category, type Blog } from "@/lib/types/blog.types";
+import { LanguageKey } from "@/lib/types/data.types";
+import { useRouter } from "next/navigation";
+import { queryStringBuilder } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const BlogPageContent = ({
   blogList,
@@ -32,19 +32,19 @@ const BlogPageContent = ({
   };
 }) => {
   const currentPage = filters?.page || 1;
-  const [searchTerm, setSearchTerm] = useState(filters?.search || '');
+  const [searchTerm, setSearchTerm] = useState(filters?.search || "");
   const [selectedCategory, setSelectedCategory] = useState(
-    filters?.category || 'all'
+    filters?.category || "all"
   );
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const searchRef = useRef<NodeJS.Timeout | null>(null);
-  const t = useTranslations('blogTranslation');
+  const t = useTranslations("blogTranslation");
 
   const categoriesData = [
-    { id: 'all', name: t('allBlogs') },
+    { id: "all", name: t("allBlogs") },
     ...categories.map((category) => ({
       id: category._id,
       name: category.name?.[lang],
@@ -64,13 +64,13 @@ const BlogPageContent = ({
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   };
 
@@ -78,9 +78,9 @@ const BlogPageContent = ({
     checkScrollButtons();
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      scrollContainer.addEventListener('scroll', checkScrollButtons);
+      scrollContainer.addEventListener("scroll", checkScrollButtons);
       return () =>
-        scrollContainer.removeEventListener('scroll', checkScrollButtons);
+        scrollContainer.removeEventListener("scroll", checkScrollButtons);
     }
   }, []);
 
@@ -92,10 +92,10 @@ const BlogPageContent = ({
     searchRef.current = setTimeout(() => {
       const queryString = queryStringBuilder({
         search: value,
-        category: selectedCategory !== 'all' ? selectedCategory : '',
-        page: '1',
+        category: selectedCategory !== "all" ? selectedCategory : "",
+        page: "1",
       });
-      router.push(`/blog${queryString ? `?${queryString}` : ''}`);
+      router.push(`/blog${queryString ? `?${queryString}` : ""}`);
     }, 500);
   };
 
@@ -103,9 +103,9 @@ const BlogPageContent = ({
     const queryString = queryStringBuilder({
       page: page.toString(),
       search: searchTerm,
-      category: selectedCategory !== 'all' ? selectedCategory : '',
+      category: selectedCategory !== "all" ? selectedCategory : "",
     });
-    router.push(`/blog${queryString ? `?${queryString}` : ''}`);
+    router.push(`/blog${queryString ? `?${queryString}` : ""}`);
   };
 
   return (
@@ -119,7 +119,7 @@ const BlogPageContent = ({
               <FaMagnifyingGlass className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground z-[4]" />
               <Input
                 type="text"
-                placeholder={t('search')}
+                placeholder={t("search")}
                 value={searchTerm}
                 onChange={(e) => debouncedSearch(e.target.value)}
                 className="pl-10"
@@ -137,8 +137,8 @@ const BlogPageContent = ({
               size="icon"
               className={`absolute inset-y-0 left-0 top-1/2 -translate-y-1/2 z-[4] w-10 h-10 rounded-full shadow-lg ${
                 canScrollLeft
-                  ? 'hover:bg-accent hover:text-accent-foreground opacity-100'
-                  : 'opacity-50 cursor-not-allowed'
+                  ? "hover:bg-accent hover:text-accent-foreground opacity-100"
+                  : "opacity-50 cursor-not-allowed"
               }`}
             >
               <FaArrowLeft className="size-4" />
@@ -152,8 +152,8 @@ const BlogPageContent = ({
               size="icon"
               className={`absolute inset-y-0 right-0 top-1/2 -translate-y-1/2 z-[4] w-10 h-10 rounded-full shadow-lg ${
                 canScrollRight
-                  ? 'hover:bg-accent hover:text-accent-foreground opacity-100'
-                  : 'opacity-50 cursor-not-allowed'
+                  ? "hover:bg-accent hover:text-accent-foreground opacity-100"
+                  : "opacity-50 cursor-not-allowed"
               }`}
             >
               <FaArrowRight className="size-4" />
@@ -163,7 +163,7 @@ const BlogPageContent = ({
             <div
               ref={scrollContainerRef}
               className="flex gap-4 overflow-x-auto scrollbar-hide px-12 py-2"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {categoriesData.map((category) => (
                 <Button
@@ -172,13 +172,13 @@ const BlogPageContent = ({
                     setSelectedCategory(category.id);
                     const queryString = queryStringBuilder({
                       category: category.id,
-                      page: '1',
+                      page: "1",
                       search: searchTerm,
                     });
-                    router.push(`/blog${queryString ? `?${queryString}` : ''}`);
+                    router.push(`/blog${queryString ? `?${queryString}` : ""}`);
                   }}
                   variant={
-                    selectedCategory === category.id ? 'default' : 'outline'
+                    selectedCategory === category.id ? "default" : "outline"
                   }
                   size="sm"
                   className="flex-shrink-0"
@@ -197,14 +197,14 @@ const BlogPageContent = ({
           {blogList.data.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📝</div>
-              <h3 className="text-2xl font-semibold mb-2">{t('noBlogs')}</h3>
-              <p className="text-muted-foreground">{t('noResults')}</p>
+              <h3 className="text-2xl font-semibold mb-2">{t("noBlogs")}</h3>
+              <p className="text-muted-foreground">{t("noResults")}</p>
             </div>
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {blogList.data.map((blog) => (
-                  <BlogCard key={blog._id} blog={blog} lang={lang} />
+                  <BlogCard key={blog._id} blog={blog} />
                 ))}
               </div>
 
@@ -239,7 +239,7 @@ const BlogPageContent = ({
                       onClick={() => {
                         handlePageChange(page);
                       }}
-                      variant={currentPage == page ? 'default' : 'outline'}
+                      variant={currentPage == page ? "default" : "outline"}
                       size="sm"
                     >
                       {page}
