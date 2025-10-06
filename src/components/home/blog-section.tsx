@@ -44,12 +44,11 @@ const BlogSection = ({
       )}
 
       <div className="w-full relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 h-auto pt-12 sm:pt-12 pb-12 sm:pb-12 md:pb-12 lg:pb-12">
-        <h2 className="text-center font-semibold text-white text-2xl sm:text-3xl md:mt-10 md:text-4xl lg:text-5xl">
-          {data?.title?.[lang]}
+        <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl">
+          {data.title?.[lang]}
         </h2>
-
-        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-          {data?.secondaryTitle?.[lang]}
+        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+          {data.secondaryTitle?.[lang]}
         </h3>
 
         <p className="mx-auto text-center text-white/90 leading-relaxed mt-4 text-base sm:text-lg max-w-2xl md:mt-6 md:text-lg md:max-w-3xl lg:text-xl">

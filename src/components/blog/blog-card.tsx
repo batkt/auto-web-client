@@ -1,3 +1,4 @@
+// components/BlogCard.tsx
 import React from "react";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa6";
@@ -30,11 +31,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
           {blog.title}
         </h3>
 
+        {/* WHY: HTML-тэй текстийг эвдэлгүйгээр 3 мөрөөр л харуулах */}
         <div
-          className="mb-4 text-white"
-          dangerouslySetInnerHTML={{
-            __html: firstTextBlock?.content || "",
-          }}
+          className="mb-4 text-white overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]"
+          dangerouslySetInnerHTML={{ __html: firstTextBlock?.content || "" }}
         />
 
         <div className="text-white font-semibold transition-colors flex items-center gap-2 cursor-pointer group-hover:text-red-600">

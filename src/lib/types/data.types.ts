@@ -86,6 +86,9 @@ export type HomeHelpData = {
 export type Products = {
   productImage: string;
   name: MultiLanguageString;
+  model: string;
+  description: MultiLanguageString;
+  price: string;
 };
 
 export type HomeQuoteData = BaseSectionDetailData & {

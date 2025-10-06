@@ -1,17 +1,17 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import BlogCard from '@/components/blog/blog-card';
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import BlogCard from "@/components/blog/blog-card";
 // import SocialShare from '@/components/ui/social-share';
-import { FaCalendar } from 'react-icons/fa6';
-import { Blog } from '@/lib/types/blog.types';
-import { getRequest } from '@/lib/http-client';
-import { formatDate, getEmbedUrl, getImageUrl } from '@/lib/utils';
-import { LanguageKey } from '@/lib/types/data.types';
-import { getTranslations } from 'next-intl/server';
+import { FaCalendar } from "react-icons/fa6";
+import { Blog } from "@/lib/types/blog.types";
+import { getRequest } from "@/lib/http-client";
+import { formatDate, getEmbedUrl, getImageUrl } from "@/lib/utils";
+import { LanguageKey } from "@/lib/types/data.types";
+import { getTranslations } from "next-intl/server";
 
 // force dynamic
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 // Generate metadata for SEO
 export async function generateMetadata(props: {
@@ -24,15 +24,15 @@ export async function generateMetadata(props: {
 
   if (!blog) {
     return {
-      title: 'Нийтлэл олдсонгүй',
-      description: 'Хайж байгаа нийтлэл олдсонгүй.',
+      title: "Нийтлэл олдсонгүй",
+      description: "Хайж байгаа нийтлэл олдсонгүй.",
     };
   }
 
   return {
     title: blog.title,
     description: blog?.description || blog.title,
-    keywords: blog.categories.map((category) => category.name?.[lang] || ''),
+    keywords: blog.categories.map((category) => category.name?.[lang] || ""),
     openGraph: {
       title: `${blog.title} | Монгол Христийн Сүм`,
       description: blog?.description || blog.title,
@@ -44,11 +44,11 @@ export async function generateMetadata(props: {
           alt: blog.title,
         },
       ],
-      type: 'article',
+      type: "article",
       publishedTime: blog.publishedAt,
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: blog.title,
       description: blog?.description || blog.title,
       images: [getImageUrl(blog.thumbImage)],
@@ -59,7 +59,7 @@ export async function generateMetadata(props: {
 export async function generateStaticParams() {
   try {
     const blogListResponse = await getRequest<{ blogs: Blog[] }>(
-      '/blogs?status=published&limit=50'
+      "/blogs?status=published&limit=50"
     );
     const blogs = blogListResponse.data.blogs;
 
@@ -69,7 +69,7 @@ export async function generateStaticParams() {
   } catch (error) {
     // If the API is not available during build time, return empty array
     // This allows the page to be generated dynamically at runtime
-    console.warn('Could not fetch blogs for static generation:', error);
+    console.warn("Could not fetch blogs for static generation:", error);
     return [];
   }
 }
@@ -81,7 +81,7 @@ export default async function BlogDetailPage(props: {
   const lang = locale as LanguageKey;
   const blogTranslation = await getTranslations({
     locale: lang,
-    namespace: 'blogTranslation',
+    namespace: "blogTranslation",
   });
 
   const blogResponse = await getRequest<Blog>(`/blogs/${slug}`);
@@ -148,23 +148,23 @@ export default async function BlogDetailPage(props: {
             <div>
               <article className="flex flex-col gap-4 tiptap text-lg">
                 {blog.blocks?.map((block) => {
-                  if (block.type === 'text') {
+                  if (block.type === "text") {
                     return (
                       <div
                         key={block.id}
                         className="block"
                         dangerouslySetInnerHTML={{
-                          __html: block?.content || '',
+                          __html: block?.content || "",
                         }}
                       ></div>
                     );
                   }
 
-                  if (block.type === 'image') {
+                  if (block.type === "image") {
                     return (
                       <Image
                         key={block.id}
-                        src={getImageUrl(block.data?.url || '')}
+                        src={getImageUrl(block.data?.url || "")}
                         alt={block.data?.alt || blog.title}
                         width={800}
                         height={800}
@@ -173,11 +173,11 @@ export default async function BlogDetailPage(props: {
                     );
                   }
 
-                  if (block.type === 'video') {
+                  if (block.type === "video") {
                     return (
                       <div key={block.id}>
                         <iframe
-                          src={getEmbedUrl(block?.url || '') || ''}
+                          src={getEmbedUrl(block?.url || "") || ""}
                           width="100%"
                           className="rounded aspect-video"
                           allowFullScreen
@@ -210,16 +210,16 @@ export default async function BlogDetailPage(props: {
           <div className="container max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                {blogTranslation('relatedPosts')}
+                {blogTranslation("relatedPosts")}
               </h2>
               <p className="text-lg text-muted-foreground">
-                {blogTranslation('relatedPostsDescription')}
+                {blogTranslation("relatedPostsDescription")}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {relatedPosts.data.blogs?.map((post) => (
-                <BlogCard key={post._id} blog={post} lang={lang} />
+                <BlogCard key={post._id} blog={post} />
               ))}
             </div>
           </div>
