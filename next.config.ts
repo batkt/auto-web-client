@@ -1,32 +1,38 @@
-import type { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  output: 'standalone',
+  output: "standalone",
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
       {
-        protocol: 'https',
-        hostname: 'mongoladventist.org',
+        protocol: "https",
+        hostname: "mongoladventist.org",
       },
       {
-        protocol: 'https',
-        hostname: 'www.databridgemarketresearch.com',
+        protocol: "https",
+        hostname: "www.databridgemarketresearch.com",
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        pathname: '/uploads/**',
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/uploads/**",
       },
       {
-        protocol: 'http',
-        hostname: 'backend',
-        pathname: '/uploads/**',
+        protocol: "http",
+        hostname: "backend",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "http",
+        hostname: "192.168.1.196",
+        port: "4001",
+        pathname: "/uploads/**",
       },
     ],
   },

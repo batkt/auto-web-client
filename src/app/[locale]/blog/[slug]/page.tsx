@@ -30,7 +30,7 @@ export async function generateMetadata(props: {
   }
 
   return {
-    title: blog.title,
+    title: blog?.title,
     description: blog?.description || blog.title,
     keywords: blog.categories.map((category) => category.name?.[lang] || ""),
     openGraph: {
@@ -147,7 +147,7 @@ export default async function BlogDetailPage(props: {
           <div>
             <div>
               <article className="flex flex-col gap-4 tiptap text-lg">
-                {blog.blocks?.map((block) => {
+                {blog?.blocks?.map((block) => {
                   if (block.type === "text") {
                     return (
                       <div

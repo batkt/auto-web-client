@@ -29,13 +29,15 @@ const HeaderItems = ({
     <div className={cn("h-full container max-w-6xl px-6 mx-auto", className)}>
       <div className="flex justify-between items-center size-full">
         <div className="uppercase font-black text-2xl">
-          <Image
-            src={getImageUrl(data?.logoImage)}
-            alt="logo"
-            width={100}
-            height={100}
-            className="h-10 w-auto object-contain"
-          />
+          <Link href="/">
+            <Image
+              src={getImageUrl(data?.logoImage)}
+              alt="logo"
+              width={100}
+              height={100}
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}

@@ -20,6 +20,7 @@ const LanguageSelector = ({ lang, dark }: { lang: string; dark: boolean }) => {
       onValueChange={(value) => {
         router.push(pathname, {
           locale: value,
+          scroll: false,
         });
       }}
       value={lang}

@@ -38,7 +38,7 @@ export default function Ticker({
       {/* --- Container --- */}
       <div className="relative w-full pt-4 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto flex flex-col items-center justify-center text-center min-h-[calc(100vh-120px)]">
         {/* Titles */}
-        <div className="px-4 sm:px-6 md:px-10 pt-12 sm:pt-14 md:pt-16">
+        <div className="px-4 sm:px-6 md:px-10 ">
           <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold">
             {data.title?.[lang]}
           </h2>

@@ -4,6 +4,7 @@ import React from "react";
 import { HomeHeroData, LanguageKey } from "@/lib/types/data.types";
 import { getImageUrl } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 const HeroSection = ({
   lang,
@@ -53,9 +54,11 @@ const HeroSection = ({
             </p>
 
             {data?.ctaText?.[lang] && (
-              <button className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#0888A3] whitespace-normal">
-                {data.ctaText[lang]}
-              </button>
+              <Link href={data?.ctaUrl}>
+                <button className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#0888A3] whitespace-normal">
+                  {data.ctaText[lang]}
+                </button>
+              </Link>
             )}
           </div>
 
