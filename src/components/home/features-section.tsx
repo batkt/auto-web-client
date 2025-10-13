@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 import {
   FaTelegramPlane,
@@ -36,18 +37,20 @@ const FeaturesSection = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactFormData>();
+  const t = useTranslations("contactTranslation");
 
   const onSubmit = async (form: ContactFormData) => {
     try {
       const res = await saveMessage(form);
       if (res?.code === 201) {
-        toast.success("Message sent successfully");
+        toast.success(t("messageSentSuccessfully"));
+
         reset();
       } else {
-        toast.error("Failed to send message");
+        toast.error(t("messageSentFailed"));
       }
     } catch {
-      toast.error("Failed to send message");
+      toast.error(t("messageSentFailed"));
     }
   };
 

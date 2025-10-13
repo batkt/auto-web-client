@@ -7,10 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { useTranslations } from "next-intl";
 import { saveMessage } from "@/lib/action";
 import { toast } from "sonner";
 import { ContactFormData } from "@/lib/types/contact.types";
+import { useTranslations } from "next-intl";
 
 const ContactFormSection = () => {
   const t = useTranslations("contactTranslation");

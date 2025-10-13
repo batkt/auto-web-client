@@ -39,7 +39,7 @@ const HeroSection = ({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
         <div className="grid items-center gap-10 grid-cols-1 text-center py-16 md:min-h-[calc(100vh-5rem)] md:grid-cols-2 md:gap-16 lg:gap-24 md:py-12">
           {/* Text content */}
-          <div className="order-2 md:order-1 text-left relative z-10">
+          <div className=" text-center order-1 md:text-left relative z-10">
             <h1 className="text-white font-extrabold leading-tight">
               <span className="block text-4xl sm:text-5xl lg:text-7xl whitespace-normal">
                 {data?.mainTitle?.[lang]}
@@ -62,8 +62,7 @@ const HeroSection = ({
             )}
           </div>
 
-          {/* Image content */}
-          <div className="flex items-center justify-center order-1 md:order-2 relative z-10">
+          <div className="flex items-center justify-center order-2 relative z-10">
             {productUrl && (
               <Image
                 src={productUrl}

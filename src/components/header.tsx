@@ -1,14 +1,15 @@
+// app/components/Header.tsx
 "use client";
 
-import { cn, getImageUrl } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaXmark } from "react-icons/fa6";
 import HeaderItems from "./header-item";
 import { HeaderData, LanguageKey } from "@/lib/types/data.types";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 
 const Header = ({
   data,
@@ -21,28 +22,18 @@ const Header = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
   const nowDate = new Date();
   const t = useTranslations("footerTranslation");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (scrollTop > 340) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 340);
     window.addEventListener("scroll", handleScroll);
 
-    // Close mobile menu when scrolling
+    // close on scroll
     const handleScrollCloseMenu = () => {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
+      if (isMobileMenuOpen) setIsMobileMenuOpen(false);
     };
-
     window.addEventListener("scroll", handleScrollCloseMenu);
 
     return () => {
@@ -51,7 +42,6 @@ const Header = ({
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
@@ -59,29 +49,27 @@ const Header = ({
         setIsMobileMenuOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
+  // underline only under the text; centered
+  const underlineSpan =
+    "relative inline-block w-fit after:block after:h-[2px] after:bg-white after:mt-1 after:origin-left after:transition-transform after:duration-300 after:scale-x-0 hover:after:scale-x-100 focus-visible:after:scale-x-100";
+
   return (
     <header>
+      {/* Top bar: mobile black, desktop transparent */}
       <div
         className={cn(
-          "absolute top-0 inset-x-0 h-16 md:h-20 z-10 transition-all duration-200",
+          "absolute top-0 inset-x-0 h-16 md:h-20 z-10 transition-all duration-200 bg-black md:bg-transparent",
           className
         )}
       >
@@ -93,9 +81,11 @@ const Header = ({
           lang={lang}
         />
       </div>
+
+      {/* Sticky bar after scroll */}
       <div
         className={cn(
-          "fixed top-0 z-10 w-full h-16 md:h-20 transition-all duration-200 bg-black text-white shadow-sm",
+          "fixed top-0 z-20 w-full h-16 md:h-20 transition-all duration-200 bg-black text-white shadow-sm",
           isScrolled ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -108,65 +98,80 @@ const Header = ({
         />
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 z-20 md:hidden" />
+        <button
+          type="button"
+          className="fixed inset-0 bg-black/50 z-20 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-label="Close menu overlay"
+        />
       )}
 
-      {/* Mobile Menu */}
-      <div
+      {/* Drawer: right, w-80 */}
+      <aside
         className={cn(
-          "fixed top-0 right-0 h-full w-80 bg-white shadow-xl z-30 transform transition-transform duration-300 ease-in-out md:hidden mobile-menu-container",
+          "fixed top-0 right-0 h-full w-80 bg-primary text-white z-30 transform transition-transform duration-500 ease-in-out md:hidden mobile-menu-container",
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
       >
         <div className="flex flex-col h-full">
-          {/* Mobile Menu Header */}
-          <div className="flex items-center justify-between p-6 border-b border-border">
-            <div className="uppercase font-black text-xl">
-              <Image
-                src={getImageUrl(data.logoImage)}
-                alt="logo"
-                width={100}
-                height={100}
-                className="h-10 w-auto object-contain"
-              />
-            </div>
+          {/* Drawer header */}
+          <div className="flex items-center justify-end p-5">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-foreground"
+              className="text-white"
+              aria-label="Close menu"
             >
-              <FaXmark className="size-5" />
+              <FaXmark className="size-7" />
             </Button>
           </div>
 
-          {/* Mobile Menu Items */}
-          <nav className="flex-1 p-6">
-            <ul className="space-y-4">
-              {data.menuList?.map((menu, index) => (
-                <li key={`mobile-menu-item-${index}`}>
-                  <Link
-                    href={menu.path}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-3 px-4 text-lg font-medium text-foreground hover:bg-accent hover:text-accent-foreground rounded-lg transition-colors"
+          <nav className="flex-1 px-6 flex items-center justify-center">
+            <ul className="w-full text-start space-y-2 pl-12">
+              {data.menuList?.map((menu, index) => {
+                const href = menu.path;
+                const isActive =
+                  href === "/" ? pathname === "/" : pathname?.startsWith(href);
+                return (
+                  <li
+                    key={`mobile-menu-item-${index}`}
+                    className="tracking-wide"
                   >
-                    {menu.name?.[lang]}
-                  </Link>
-                </li>
-              ))}
+                    <Link
+                      href={href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <span
+                        className={cn(
+                          "text-xl mx-auto", // center text/underline
+                          underlineSpan,
+                          isActive && "font-semibold after:scale-x-100"
+                        )}
+                      >
+                        {menu.name?.[lang]}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
 
-          {/* Mobile Menu Footer */}
-          <div className="p-6 border-t border-border">
-            <div className="text-sm text-muted-foreground">
+          {/* Footer — bigger + slightly higher */}
+          <div className="px-6 pb-12 pt-4">
+            <div className="text-base leading-6 opacity-95">
               {t("copyright", { year: nowDate.getFullYear() })}
             </div>
           </div>
         </div>
-      </div>
+      </aside>
     </header>
   );
 };

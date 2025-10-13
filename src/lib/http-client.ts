@@ -1,7 +1,7 @@
 // import { BACKEND_URL } from './config';
 const BACKEND_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4001';
-import { ResponseType } from './types/http.types';
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4001";
+import { ResponseType } from "./types/http.types";
 
 const createHeaders = (
   token?: string,
@@ -35,7 +35,7 @@ const getRequest = async <T>(
   const response = await fetch(`${BACKEND_URL}/api${url}`, {
     ...otherOptions,
     headers: createHeaders(token, headers),
-    method: 'GET',
+    method: "GET",
     next: {
       revalidate: 60, // эсвэл 'force-cache', 'no-store'
     },
@@ -57,9 +57,9 @@ const postRequest = async <T>(
     ...otherOptions,
     headers: createHeaders(token, {
       ...headers,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     }),
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify(data),
   });
 
