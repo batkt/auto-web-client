@@ -3,27 +3,43 @@
 import { useEffect, useState } from "react";
 
 interface LoaderProps {
-  isLoading?: boolean;
   duration?: number;
 }
 
-export default function Loader({
-  isLoading = true,
-  duration = 2000,
-}: LoaderProps) {
-  const [showLoader, setShowLoader] = useState(isLoading);
+export default function Loader({ duration = 2000 }: LoaderProps) {
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
-    if (isLoading) {
+    // Check if this is the initial page load (not a language switch)
+    const isInitialLoad = !sessionStorage.getItem("hasLoaded");
+
+    if (isInitialLoad) {
       setShowLoader(true);
+      sessionStorage.setItem("hasLoaded", "true");
+
       const timer = setTimeout(() => {
         setShowLoader(false);
       }, duration);
+
       return () => clearTimeout(timer);
     } else {
+      // For subsequent loads (like language switching), don't show loader
       setShowLoader(false);
     }
-  }, [isLoading, duration]);
+  }, [duration]);
+
+  // Reset the session storage when the component unmounts (page refresh)
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem("hasLoaded");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   if (!showLoader) return null;
 
