@@ -1,7 +1,7 @@
-'use client';
-import { BranchHeroData, LanguageKey } from '@/lib/types/data.types';
-import { getClientImageUrl } from '@/lib/utils';
-import React from 'react';
+"use client";
+import { BranchHeroData, LanguageKey } from "@/lib/types/data.types";
+import { getClientImageUrl } from "@/lib/utils";
+import React from "react";
 
 const BranchHeroSection = ({
   lang,
@@ -19,10 +19,10 @@ const BranchHeroSection = ({
     >
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-title">
           {data.title?.[lang]}
         </h1>
-        <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white/90">
+        <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white/90 font-description">
           {data.description?.[lang]}
         </p>
         <div className="flex flex-col sm:flex-row gap-8 justify-center">

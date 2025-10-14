@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Fira_Sans_Condensed } from "next/font/google";
+import { Geist_Mono, Fira_Sans_Condensed, Montserrat } from "next/font/google";
 import "../globals.css";
 import "leaflet/dist/leaflet.css";
 import { HeaderData, SectionData } from "@/lib/types/data.types";
@@ -10,10 +10,17 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import { Toaster } from "@/components/ui/sonner";
+import Loader from "@/components/ui/loader";
 
 const shantellSans = Fira_Sans_Condensed({
   variable: "--font-shantell-sans",
   subsets: ["cyrillic-ext"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin", "cyrillic"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
@@ -66,9 +73,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${shantellSans.variable} ${geistMono.variable} antialiased`}
+        className={`${shantellSans.variable} ${montserrat.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
+          <Loader />
           <Toaster position="top-right" />
           <Header data={headerData} lang={locale} />
           <main>{children}</main>

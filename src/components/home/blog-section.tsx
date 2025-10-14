@@ -38,24 +38,24 @@ const BlogSection = ({
             fill
             sizes="100vw"
             priority
-            className="object-cover object-center pointer-events-none select-none opacity-90"
+            className="object-cover object-center pointer-events-none select-none "
           />
         </>
       )}
 
-      <div className="w-full relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 h-auto pt-12 sm:pt-12 pb-12 sm:pb-12 md:pb-12 lg:pb-12">
-        <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl">
+      <div className="w-full relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 h-auto pt-8 sm:pt-12 pb-12 sm:pb-12 md:pb-12 lg:pb-12">
+        <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl font-title">
           {data.title?.[lang]}
         </h2>
-        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
           {data.secondaryTitle?.[lang]}
         </h3>
 
-        <p className="mx-auto text-center text-white/90 leading-relaxed mt-4 text-base sm:text-lg max-w-2xl md:mt-6 md:text-lg md:max-w-3xl lg:text-xl">
+        <p className="mx-auto text-center text-white/90 leading-relaxed mt-4 text-base sm:text-lg max-w-2xl md:mt-6 md:text-lg md:max-w-3xl lg:text-xl font-description">
           {data?.description?.[lang]}
         </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8 lg:gap-10">
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8 lg:gap-10 justify-items-center md:justify-items-start">
           {blogs.map((blog) => (
             <motion.div
               key={blog._id}
@@ -64,6 +64,7 @@ const BlogSection = ({
                 y: -8,
                 transition: { duration: 0.28, ease: "easeOut" },
               }}
+              className="w-full"
             >
               <BlogCard blog={blog} />
             </motion.div>

@@ -1,7 +1,7 @@
 // app/components/Header.tsx
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn, handleSmoothScroll } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -133,7 +133,7 @@ const Header = ({
           </div>
 
           <nav className="flex-1 px-6 flex items-center justify-center">
-            <ul className="w-full text-start space-y-2 pl-12">
+            <ul className="w-full pl-12 text-start space-y-2">
               {data.menuList?.map((menu, index) => {
                 const href = menu.path;
                 const isActive =
@@ -141,16 +141,30 @@ const Header = ({
                 return (
                   <li
                     key={`mobile-menu-item-${index}`}
-                    className="tracking-wide"
+                    className={cn(
+                      "tracking-wide transition-all duration-500 ease-out",
+                      isMobileMenuOpen
+                        ? "opacity-100 translate-y-0"
+                        : "opacity-0 translate-y-4"
+                    )}
+                    style={{
+                      transitionDelay: isMobileMenuOpen
+                        ? `${index * 100}ms`
+                        : "0ms",
+                    }}
                   >
                     <Link
                       href={href}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={(e) => {
+                        if (handleSmoothScroll(href, setIsMobileMenuOpen)) {
+                          e.preventDefault();
+                        }
+                      }}
                       aria-current={isActive ? "page" : undefined}
                     >
                       <span
                         className={cn(
-                          "text-xl mx-auto", // center text/underline
+                          "text-l mx-auto text-description", // center text/underline
                           underlineSpan,
                           isActive && "font-semibold after:scale-x-100"
                         )}
@@ -165,8 +179,8 @@ const Header = ({
           </nav>
 
           {/* Footer — bigger + slightly higher */}
-          <div className="px-6 pb-12 pt-4">
-            <div className="text-base leading-6 opacity-95">
+          <div className="px-6 pb-12 pt-6">
+            <div className="text-l text-description leading-7 opacity-90 text-center">
               {t("copyright", { year: nowDate.getFullYear() })}
             </div>
           </div>

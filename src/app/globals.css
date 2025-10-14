@@ -76,7 +76,8 @@
   --sidebar-accent-foreground: oklch(0.4732 0.1247 46.2007);
   --sidebar-border: oklch(0.9276 0.0058 264.5313);
   --sidebar-ring: oklch(0.7686 0.1647 70.0804);
-  --font-sans: Fira Sans Condensed, sans-serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+  --font-roboto: "Roboto", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
   --radius: 0rem;
@@ -130,7 +131,8 @@
   --sidebar-accent-foreground: oklch(0.9243 0.1151 95.7459);
   --sidebar-border: oklch(0.3715 0 0);
   --sidebar-ring: oklch(0.7686 0.1647 70.0804);
-  --font-sans: Inter, sans-serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+  --font-roboto: "Roboto", sans-serif;
   --font-serif: Source Serif 4, serif;
   --font-mono: JetBrains Mono, monospace;
   --radius: 0rem;
@@ -205,6 +207,9 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -338,4 +343,138 @@
 
 .tiptap a span {
   color: var(--primary) !important;
+}
+
+/* Custom Red Scrollbar with White Border - Always Visible */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 0px;
+  box-shadow: inset 0 0 0 1px #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border: 1px solid #ffffff;
+  border-radius: 0px;
+  min-height: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b91c1c;
+  border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #991b1b;
+  border: 1px solid #ffffff;
+}
+
+::-webkit-scrollbar-corner {
+  background: #ffffff;
+}
+
+/* Force scrollbar to always be visible */
+html {
+  overflow-y: scroll;
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #dc2626 #ffffff;
+}
+
+/* Custom font classes */
+.font-title {
+  font-family: "Montserrat", sans-serif;
+}
+
+.font-description {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Loader Styles */
+.loader {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 111111;
+  background: #171717;
+  overflow: hidden !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader-container {
+  width: 100px;
+  height: 100px;
+}
+
+.loader-block {
+  position: relative;
+  box-sizing: border-box;
+  float: left;
+  margin: 0 10px 10px 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: #0888a3;
+}
+
+@keyframes loaderPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.loader-block:nth-child(4n + 1) {
+  animation: wave 1.5s ease 0s infinite;
+}
+.loader-block:nth-child(4n + 2) {
+  animation: wave 1.5s ease 0.2s infinite;
+}
+.loader-block:nth-child(4n + 3) {
+  animation: wave 1.5s ease 0.4s infinite;
+}
+.loader-block:nth-child(4n + 4) {
+  animation: wave 1.5s ease 0.6s infinite;
+  margin-right: 0;
+}
+
+@keyframes wave {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    top: 30px;
+    opacity: 0.2;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+/* Fade out animation */
+.loader.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }

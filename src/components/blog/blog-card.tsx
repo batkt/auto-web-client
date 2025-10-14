@@ -28,23 +28,24 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
       </div>
 
       <CardContent className="px-0 pt-4">
-        <Link href={`/blog/${blog._id}`}>
-          <h3 className="text-xl font-bold mb-3 text-white transition-colors group-hover:text-primary cursor-pointer">
-            {blog.title}
-          </h3>
-        </Link>
+        <div className="group/card">
+          <Link href={`/blog/${blog._id}`} className="group/title">
+            <h3 className="text-xl font-bold mb-3 text-center md:text-left text-white transition-colors group-hover:text-primary group-hover/card:text-primary cursor-pointer font-title">
+              {blog.title}
+            </h3>
+          </Link>
 
-        {/* WHY: HTML-тэй текстийг эвдэлгүйгээр 3 мөрөөр л харуулах */}
-        <div
-          className="mb-4 text-white overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]"
-          dangerouslySetInnerHTML={{ __html: firstTextBlock?.content || "" }}
-        />
-        <Link href={`/blog/${blog._id}`}>
-          <div className="text-white font-semibold transition-colors flex items-center gap-2 cursor-pointer group-hover:text-red-600">
-            Learn More
-            <FaArrowRight className="size-3" />
-          </div>
-        </Link>
+          <div
+            className="mb-2 text-white text-center md:text-left overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] font-description"
+            dangerouslySetInnerHTML={{ __html: firstTextBlock?.content || "" }}
+          />
+          <Link href={`/blog/${blog._id}`} className="group/learn-more">
+            <div className="text-white text-center md:text-left font-semibold transition-colors flex items-center justify-center md:justify-start gap-2 cursor-pointer group-hover/learn-more:text-red-600 group-hover/card:text-red-600">
+              Learn More
+              <FaArrowRight className="size-3" />
+            </div>
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

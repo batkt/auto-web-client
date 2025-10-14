@@ -46,3 +46,33 @@ export const getEmbedUrl = (url: string): string | null => {
   }
   return null;
 };
+
+export const smoothScrollToElement = (
+  elementId: string,
+  offset: number = 0
+) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  }
+};
+
+export const handleSmoothScroll = (
+  href: string,
+  setIsMobileMenuOpen?: (open: boolean) => void
+) => {
+  // Check if it's an anchor link (starts with #)
+  if (href.startsWith("#")) {
+    const elementId = href.substring(1);
+    smoothScrollToElement(elementId, 80); // 80px offset for header height
+    setIsMobileMenuOpen?.(false);
+    return true;
+  }
+  return false;
+};

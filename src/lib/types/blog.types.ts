@@ -1,4 +1,4 @@
-import { MultiLanguageString } from './data.types';
+import { MultiLanguageString } from "./data.types";
 
 export interface Blog {
   _id: string;
@@ -8,7 +8,7 @@ export interface Blog {
   categories: Category[];
   blocks: Block[];
   slug: string;
-  status: 'draft' | 'published';
+  status: "draft" | "published";
   publishedAt?: string;
   author?: {
     username: string;
@@ -34,7 +34,7 @@ export interface UploadedImage {
 }
 
 export type Block =
-  | { id: string; type: 'text'; content?: string }
-  | { id: string; type: 'image'; data?: UploadedImage }
-  | { id: string; type: 'video'; url?: string }
-  | { id: string; type: 'gallery'; images: string[] };
+  | { id: string; type: "text"; content?: string }
+  | { id: string; type: "image"; data?: UploadedImage }
+  | { id: string; type: "video"; url?: string }
+  | { id: string; type: "gallery"; images: string[] };

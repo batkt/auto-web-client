@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, getImageUrl } from "@/lib/utils";
+import { cn, getImageUrl, handleSmoothScroll } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { Button } from "./ui/button";
 import { FaBars } from "react-icons/fa6";
@@ -28,7 +28,7 @@ const HeaderItems = ({
   return (
     <div className={cn("h-full container max-w-6xl px-6 mx-auto", className)}>
       <div className="flex justify-between items-center size-full">
-        <div className="uppercase font-black text-2xl">
+        <div className="uppercase font-black text-xl">
           <Link href="/">
             <Image
               src={getImageUrl(data?.logoImage)}
@@ -40,14 +40,18 @@ const HeaderItems = ({
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
         <ul className="hidden md:flex items-center gap-8">
           {data.menuList?.map((menu, index) => {
             return (
               <li key={`header-menu-item-${index}`}>
                 <Link
                   href={menu.path}
-                  className="py-4 hover:underline font-semibold text-lg transition-colors"
+                  className="py-4 hover:text-primary font-semibold text-m transition-colors"
+                  onClick={(e) => {
+                    if (handleSmoothScroll(menu.path)) {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   {menu.name?.[lang]}
                 </Link>

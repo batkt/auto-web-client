@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FaHeart, FaHouseMedical, FaShieldVirus } from 'react-icons/fa6';
-import { DonatePaymentData, LanguageKey } from '@/lib/types/data.types';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { getImageUrl } from '@/lib/utils';
+import React from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FaHeart, FaHouseMedical, FaShieldVirus } from "react-icons/fa6";
+import { DonatePaymentData, LanguageKey } from "@/lib/types/data.types";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { getImageUrl } from "@/lib/utils";
 
 const DonatePaymentSection = ({
   lang,
@@ -16,15 +16,15 @@ const DonatePaymentSection = ({
   data: DonatePaymentData;
   lang: LanguageKey;
 }) => {
-  const donateTranslation = useTranslations('donateTranslation');
+  const donateTranslation = useTranslations("donateTranslation");
   const copyToClipboard = (text: string) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert('Дансны дугаар хуулагдлаа!');
+        alert("Дансны дугаар хуулагдлаа!");
       })
       .catch(() => {
-        alert('Хуулах үед алдаа гарлаа');
+        alert("Хуулах үед алдаа гарлаа");
       });
   };
 
@@ -33,8 +33,10 @@ const DonatePaymentSection = ({
       <div className="container max-w-6xl mx-auto px-6">
         {/* Hero Line */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">{data.title[lang]}</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 font-title">
+            {data.title[lang]}
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-description">
             {data.description[lang]}
           </p>
         </div>
@@ -48,7 +50,7 @@ const DonatePaymentSection = ({
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <FaHouseMedical className="size-6 text-primary" />
                 </div>
-                <CardTitle className="text-lg">
+                <CardTitle className="text-lg font-title">
                   {data.bankAccount.title[lang]}
                 </CardTitle>
               </div>
@@ -57,7 +59,7 @@ const DonatePaymentSection = ({
               <div className="space-y-3">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground mb-1">
-                    {donateTranslation('bank')}:
+                    {donateTranslation("bank")}:
                   </p>
                   <p className="font-semibold">
                     {data.bankAccount.accounts[0].bankName}
@@ -65,7 +67,7 @@ const DonatePaymentSection = ({
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground mb-1">
-                    {donateTranslation('accountName')}:
+                    {donateTranslation("accountName")}:
                   </p>
                   <p className="font-semibold">
                     {data.bankAccount.accounts[0].accountName}
@@ -74,7 +76,7 @@ const DonatePaymentSection = ({
                 <div className="flex items-center gap-2 justify-between">
                   <div>
                     <p className="text-sm font-medium text-muted-foreground mb-1">
-                      {donateTranslation('iban')}:
+                      {donateTranslation("iban")}:
                     </p>
                     <p className="font-semibold">
                       {data.bankAccount.accounts[0].iban}
@@ -88,13 +90,13 @@ const DonatePaymentSection = ({
                       copyToClipboard(data.bankAccount.accounts[0].iban)
                     }
                   >
-                    {donateTranslation('copy')}
+                    {donateTranslation("copy")}
                   </Button>
                 </div>
                 <div className="flex items-center gap-2 justify-between">
                   <div>
                     <p className="text-sm font-medium text-muted-foreground mb-1">
-                      {donateTranslation('accountNumber')}:
+                      {donateTranslation("accountNumber")}:
                     </p>
                     <p className="font-semibold">
                       {data.bankAccount.accounts[0].accountNumber}
@@ -110,7 +112,7 @@ const DonatePaymentSection = ({
                       )
                     }
                   >
-                    {donateTranslation('copy')}
+                    {donateTranslation("copy")}
                   </Button>
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -127,7 +129,7 @@ const DonatePaymentSection = ({
                 <div className="p-2 bg-accent/10 rounded-lg">
                   <FaShieldVirus className="size-6 text-accent-foreground" />
                 </div>
-                <CardTitle className="text-lg">
+                <CardTitle className="text-lg font-title">
                   {data.qpay.title[lang]}
                 </CardTitle>
               </div>
@@ -159,7 +161,7 @@ const DonatePaymentSection = ({
                 <div className="p-2 bg-secondary/10 rounded-lg">
                   <FaHeart className="size-6 text-secondary-foreground" />
                 </div>
-                <CardTitle className="text-lg">
+                <CardTitle className="text-lg font-title">
                   {data.giveInPerson.title[lang]}
                 </CardTitle>
               </div>
@@ -171,7 +173,7 @@ const DonatePaymentSection = ({
                     <FaHandsPraying className="size-8 text-muted-foreground" />
                   </div>
                 </div> */}
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground font-description">
                   {data.giveInPerson.description[lang]}
                 </p>
               </div>

@@ -35,7 +35,7 @@ const AboutSection = ({
       )}
 
       {/* Content */}
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-14 md:py-20">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-20 md:py-28">
         <div className="grid items-center gap-10 md:gap-16 lg:gap-20 grid-cols-1 text-center md:grid-cols-2">
           {/* Text section */}
           <div className="flex flex-col items-center md:items-start md:text-left">
@@ -45,11 +45,25 @@ const AboutSection = ({
               </p>
             )}
 
-            <p className="font-bold text-3xl sm:text-4xl text-white mb-4">
-              {data.title?.[lang]}
-            </p>
+            <h2 className="font-bold text-xl sm:text-4xl text-white mb-4 font-title leading-tight">
+              <span className="block sm:inline">
+                {data.title?.[lang]
+                  ?.split(" ")
+                  .slice(
+                    0,
+                    Math.ceil(data.title?.[lang]?.split(" ").length / 2)
+                  )
+                  .join(" ")}
+              </span>
+              <span className="block sm:inline">
+                {data.title?.[lang]
+                  ?.split(" ")
+                  .slice(Math.ceil(data.title?.[lang]?.split(" ").length / 2))
+                  .join(" ")}
+              </span>
+            </h2>
 
-            <p className="text-sm sm:text-base text-gray-200/80 max-w-lg mx-auto md:mx-0">
+            <p className="text-sm sm:text-base text-gray-200/80 max-w-lg mx-auto md:mx-0 font-description">
               {data.description?.[lang]}
             </p>
           </div>
@@ -68,7 +82,7 @@ const AboutSection = ({
                 >
                   {item.stat1 || item.stat2 || item.stat3}
                 </p>
-                <p className="text-white text-sm sm:text-base">
+                <p className="text-white text-sm sm:text-base font-description">
                   {item.desc?.[lang]}
                 </p>
               </div>

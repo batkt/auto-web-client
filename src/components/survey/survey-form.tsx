@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Controller, FieldValues, useForm } from 'react-hook-form';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { AnswerType, Group, Question, Survey } from '@/lib/types/survey.types';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Textarea } from '../ui/textarea';
-import { Button } from '../ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Checkbox } from '../ui/checkbox';
+import React from "react";
+import { Controller, FieldValues, useForm } from "react-hook-form";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { AnswerType, Group, Question, Survey } from "@/lib/types/survey.types";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Checkbox } from "../ui/checkbox";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { submitSurvey } from '@/lib/action';
-import { toast } from 'sonner';
-import { useRouter } from '@/i18n/navigation';
+} from "@/components/ui/popover";
+import { submitSurvey } from "@/lib/action";
+import { toast } from "sonner";
+import { useRouter } from "@/i18n/navigation";
 
 interface SurveyFormProps {
   surveyData: Survey;
@@ -36,20 +36,20 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
 
   const getAllItems = () => {
     const items: Array<{
-      type: 'question' | 'group';
+      type: "question" | "group";
       data: Question | Group;
       index: number;
     }> = [];
 
     // Add questions
     surveyData.questions.forEach((question, index) => {
-      items.push({ type: 'question', data: question, index });
+      items.push({ type: "question", data: question, index });
     });
 
     // Add groups
     surveyData.groups.forEach((group, index) => {
       items.push({
-        type: 'group',
+        type: "group",
         data: group,
         index: surveyData.questions.length + index,
       });
@@ -71,12 +71,12 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
       });
 
       console.log(response);
-      toast.success('Судалгаа амжилттай илгээгдлээ', {
-        description: 'Бидний судалгааг бөглөсөн танд баярлалаа',
+      toast.success("Судалгаа амжилттай илгээгдлээ", {
+        description: "Бидний судалгааг бөглөсөн танд баярлалаа",
       });
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      let message = 'Алдаа гарлаа';
+      let message = "Алдаа гарлаа";
       if (error instanceof Error) {
         message = error.message;
       }
@@ -95,7 +95,7 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
       <div key={questionKey} className="space-y-2">
         <div className="space-y-2">
           <Label className="text-base font-medium">
-            {groupNumber ? `${groupNumber}.` : ''}
+            {groupNumber ? `${groupNumber}.` : ""}
             {questionIndex + 1}. {question.questionText}
             {question.isRequired && (
               <span className="text-red-500 ml-1">*</span>
@@ -114,15 +114,15 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
               control={control}
               name={questionKey}
               rules={{
-                required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                required: question.isRequired ? "Хариулт оруулна уу" : false,
               }}
               render={({ field, fieldState }) => (
                 <div>
                   <Input
                     placeholder="Хариулт оруулна уу"
-                    value={field.value || ''}
+                    value={field.value || ""}
                     onChange={(e) => field.onChange(e.target.value)}
-                    className={cn(fieldState.error && 'border-red-500')}
+                    className={cn(fieldState.error && "border-red-500")}
                   />
                   {fieldState.error && (
                     <p className="text-sm text-red-500 mt-1">
@@ -139,16 +139,16 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
               control={control}
               name={questionKey}
               rules={{
-                required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                required: question.isRequired ? "Хариулт оруулна уу" : false,
               }}
               render={({ field, fieldState }) => (
                 <div>
                   <Textarea
                     placeholder="Хариулт оруулна уу"
-                    value={field.value || ''}
+                    value={field.value || ""}
                     onChange={(e) => field.onChange(e.target.value)}
                     rows={4}
-                    className={cn(fieldState.error && 'border-red-500')}
+                    className={cn(fieldState.error && "border-red-500")}
                   />
                   {fieldState.error && (
                     <p className="text-sm text-red-500 mt-1">
@@ -165,16 +165,16 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
               control={control}
               name={questionKey}
               rules={{
-                required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                required: question.isRequired ? "Хариулт оруулна уу" : false,
               }}
               render={({ field, fieldState }) => (
                 <div>
                   <Input
                     type="number"
                     placeholder="Хариулт оруулна уу"
-                    value={field.value || ''}
+                    value={field.value || ""}
                     onChange={(e) => field.onChange(e.target.value)}
-                    className={cn(fieldState.error && 'border-red-500')}
+                    className={cn(fieldState.error && "border-red-500")}
                   />
                   {fieldState.error && (
                     <p className="text-sm text-red-500 mt-1">
@@ -191,7 +191,7 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
               control={control}
               name={questionKey}
               rules={{
-                required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                required: question.isRequired ? "Хариулт оруулна уу" : false,
               }}
               render={({ field, fieldState }) => (
                 <div>
@@ -200,15 +200,15 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
                       <Button
                         variant="outline"
                         className={cn(
-                          'w-full justify-start text-left font-normal',
-                          !field.value && 'text-muted-foreground',
-                          fieldState.error && 'border-red-500'
+                          "w-full justify-start text-left font-normal",
+                          !field.value && "text-muted-foreground",
+                          fieldState.error && "border-red-500"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {field.value
-                          ? format(new Date(field.value), 'PPP')
-                          : 'Огноо сонгоно уу'}
+                          ? format(new Date(field.value), "PPP")
+                          : "Огноо сонгоно уу"}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
@@ -239,12 +239,12 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
                 control={control}
                 name={questionKey}
                 rules={{
-                  required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                  required: question.isRequired ? "Хариулт оруулна уу" : false,
                 }}
                 render={({ field, fieldState }) => (
                   <div>
                     <RadioGroup
-                      value={field.value || ''}
+                      value={field.value || ""}
                       onValueChange={(value) => field.onChange(value)}
                     >
                       {question.options?.map((option, optionIndex) => (
@@ -278,7 +278,7 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
                 control={control}
                 name={questionKey}
                 rules={{
-                  required: question.isRequired ? 'Хариулт оруулна уу' : false,
+                  required: question.isRequired ? "Хариулт оруулна уу" : false,
                 }}
                 render={({ field, fieldState }) => (
                   <div>
@@ -333,11 +333,13 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
     >
       {/* Survey Header */}
       <div>
-        <h1 className="text-2xl font-bold">
-          {surveyData.title || 'Гарчиггүй судалгаа'}
+        <h1 className="text-2xl font-bold font-title">
+          {surveyData.title || "Гарчиггүй судалгаа"}
         </h1>
         {surveyData.description && (
-          <p className="text-muted-foreground">{surveyData.description}</p>
+          <p className="text-muted-foreground font-description">
+            {surveyData.description}
+          </p>
         )}
       </div>
 
@@ -346,13 +348,13 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
         <div className="space-y-4">
           {getAllItems().map((item, index) => (
             <div key={`${item.type}-${item.index}`} className="relative">
-              {item.type === 'question' ? (
+              {item.type === "question" ? (
                 <div>{renderQuestion(item.data as Question, index)}</div>
               ) : (
                 <div className="mt-6">
                   <div className="mb-4">
                     <h4 className="font-medium">
-                      {index + 1}.{' '}
+                      {index + 1}.{" "}
                       {(item.data as Group).title || `Бүлэг ${index + 1}`}
                     </h4>
                     {(item.data as Group).description && (
@@ -396,7 +398,7 @@ const SurveyForm = ({ surveyData }: SurveyFormProps) => {
             className="px-6"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Илгээж байна...' : 'Судалгаа илгээх'}
+            {isSubmitting ? "Илгээж байна..." : "Судалгаа илгээх"}
           </Button>
         </div>
       )}

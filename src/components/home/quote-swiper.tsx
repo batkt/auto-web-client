@@ -163,10 +163,10 @@ export default function QuoteSwiper({
 
       <div className="relative mx-auto max-w-7xl py-16 z-0 flex flex-col items-center">
         {/* Томруулсан гарчигууд */}
-        <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl">
+        <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl font-title">
           {data.title?.[lang]}
         </h2>
-        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
           {data.secondaryTitle?.[lang]}
         </h3>
 
@@ -309,22 +309,20 @@ export default function QuoteSwiper({
                   </div>
                 </div>
 
-                {/* Right: details */}
                 <div className="flex flex-col">
-                  {/* Model */}
                   {selected.model ? (
                     <p className="text-sm sm:text-base text-white/70 tracking-wide">
                       {selected.model}
                     </p>
                   ) : null}
                   {/* Name */}
-                  <h3 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-extrabold">
+                  <h3 className="mt-1 text-2xl sm:text-3xl md:text-4xl font-extrabold font-title">
                     {selected.name?.[lang]}
                   </h3>
 
                   {/* Description */}
                   {selected.description?.[lang] ? (
-                    <p className="mt-4 text-base sm:text-lg text-white/80 leading-relaxed">
+                    <p className="mt-4 text-base sm:text-lg text-white/80 leading-relaxed font-description">
                       {selected.description?.[lang]}
                     </p>
                   ) : null}

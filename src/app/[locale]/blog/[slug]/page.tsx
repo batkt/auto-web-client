@@ -146,7 +146,7 @@ export default async function BlogDetailPage(props: {
         <div className="container max-w-4xl mx-auto px-6">
           <div>
             <div>
-              <article className="flex flex-col gap-4 tiptap text-lg">
+              <article className="flex flex-col gap-4 tiptap text-lg font-description text-center md:text-left">
                 {blog?.blocks?.map((block) => {
                   if (block.type === "text") {
                     return (
@@ -217,7 +217,7 @@ export default async function BlogDetailPage(props: {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center md:justify-items-start">
               {relatedPosts.data.blogs?.map((post) => (
                 <BlogCard key={post._id} blog={post} />
               ))}

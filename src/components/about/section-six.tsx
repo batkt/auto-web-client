@@ -1,7 +1,7 @@
-'use client';
-import { AboutWeBelieveData, LanguageKey } from '@/lib/types/data.types';
-import { cn } from '@/lib/utils';
-import React from 'react';
+"use client";
+import { AboutWeBelieveData, LanguageKey } from "@/lib/types/data.types";
+import { cn } from "@/lib/utils";
+import React from "react";
 
 const SectionSix = ({
   lang,
@@ -76,7 +76,7 @@ const SectionSix = ({
 
   return (
     <div className="mb-16">
-      <h3 className="text-3xl font-bold text-foreground mb-6">
+      <h3 className="text-3xl font-bold text-foreground mb-6 font-title">
         {data.title[lang]}
       </h3>
       <div className="grid md:grid-cols-2 gap-8">
@@ -88,17 +88,17 @@ const SectionSix = ({
             >
               <div
                 className={cn(
-                  'w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1',
-                  index % 3 === 0 ? 'bg-primary/10' : ''
+                  "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-1",
+                  index % 3 === 0 ? "bg-primary/10" : ""
                 )}
               >
                 {item.icon}
               </div>
               <div>
-                <h4 className="font-semibold text-foreground">
+                <h4 className="font-semibold text-foreground font-title">
                   {item.title?.[lang]}
                 </h4>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground font-description">
                   {item.description?.[lang]}
                 </p>
               </div>

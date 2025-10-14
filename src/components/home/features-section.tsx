@@ -1,16 +1,14 @@
+// app/components/FeaturesSection.tsx
 "use client";
 
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { BiSolidPhoneCall } from "react-icons/bi";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
 import { useTranslations } from "next-intl";
-
 import {
   FaTelegramPlane,
   FaFacebookF,
@@ -23,6 +21,10 @@ import { LanguageKey, HomeHelpData } from "@/lib/types/data.types";
 import { getImageUrl } from "@/lib/utils";
 import { saveMessage } from "@/lib/action";
 import { ContactFormData } from "@/lib/types/contact.types";
+
+const underlineBase =
+  // Яагаад: нэг хэв маягийг бүх талбарт тогтвортой хэрэглэхийн тулд.
+  "w-full bg-transparent border-0 border-b border-white/25 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-white/60 focus:border-b-2";
 
 const FeaturesSection = ({
   lang,
@@ -44,7 +46,6 @@ const FeaturesSection = ({
       const res = await saveMessage(form);
       if (res?.code === 201) {
         toast.success(t("messageSentSuccessfully"));
-
         reset();
       } else {
         toast.error(t("messageSentFailed"));
@@ -64,134 +65,83 @@ const FeaturesSection = ({
         backgroundPosition: "center",
       }}
     >
-      <div id="contacts" className="mx-auto max-w-7xl px-6 pt-16 md:px-10">
-        <div className="mb-10">
-          <p className="text-white text-4xl md:text-5xl font-semibold">
+      <div className="mx-auto max-w-7xl px-6 pt-20 md:px-10">
+        <div className="mb-4">
+          <p className="text-white text-center md:text-left text-3xl md:text-5xl font-extrabold font-title">
             {data.title?.[lang]}
           </p>
-          <p className="text-[#0888A3] text-5xl md:text-6xl font-extrabold mt-2">
+          <p className="text-[#0888A3] mb-20 text-center md:text-left text-3xl md:text-5xl font-extrabold mt-2 font-title">
             {data.secondaryTitle?.[lang]}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-          <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {/* First / Last name */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="sr-only">
-                    First Name
-                  </Label>
-                  <Input
-                    id="firstName"
-                    className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400"
-                    {...register("firstName", {
-                      required: "First name is required",
-                    })}
-                    placeholder="First Name"
-                  />
-                  {errors.firstName && (
-                    <p className="text-sm text-red-500">
-                      {errors.firstName.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="sr-only">
-                    Last Name
-                  </Label>
-                  <Input
-                    id="lastName"
-                    className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400"
-                    {...register("lastName", {
-                      required: "Last name is required",
-                    })}
-                    placeholder="Last Name"
-                  />
-                  {errors.lastName && (
-                    <p className="text-sm text-red-500">
-                      {errors.lastName.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="sr-only">
-                  Email
-                </Label>
+        {/* layout */}
+        <div className="grid grid-cols-1 gap-20 md:grid-cols-2 pb-24">
+          {/* LEFT FORM */}
+          <div className="max-w-[460px]">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+              {/* Name */}
+              <div className="space-y-3">
                 <Input
-                  id="email"
-                  type="email"
-                  className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  placeholder="Email"
+                  id="firstName"
+                  placeholder={t("name")}
+                  className={underlineBase}
+                  {...register("firstName", { required: t("nameRequired") })}
                 />
-                {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                {errors.firstName && (
+                  <p className="text-sm text-red-500">
+                    {errors.firstName.message}
+                  </p>
                 )}
               </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="sr-only">
-                  Phone
-                </Label>
+              {/* Contact No */}
+              <div className="space-y-3">
                 <Input
                   id="phone"
                   type="tel"
-                  className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400"
+                  placeholder={t("contactNo")}
+                  className={underlineBase}
                   {...register("phone", {
-                    required: "Phone number is required",
+                    required: t("phoneNumberRequired"),
                   })}
-                  placeholder="Contact No"
                 />
                 {errors.phone && (
                   <p className="text-sm text-red-500">{errors.phone.message}</p>
                 )}
               </div>
 
-              {/* Subject */}
-              <div className="space-y-2">
-                <Label htmlFor="subject" className="sr-only">
-                  Subject
-                </Label>
+              {/* Email */}
+              <div className="space-y-3">
                 <Input
-                  id="subject"
-                  className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400"
-                  {...register("subject", { required: "Subject is required" })}
-                  placeholder="Subject"
+                  id="email"
+                  type="email"
+                  placeholder={t("emailAddress")}
+                  className={underlineBase}
+                  {...register("email", {
+                    required: t("emailAddressRequired"),
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: t("invalidEmail"),
+                    },
+                  })}
                 />
-                {errors.subject && (
-                  <p className="text-sm text-red-500">
-                    {errors.subject.message}
-                  </p>
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
               {/* Message */}
-              <div className="space-y-2">
-                <Label htmlFor="message" className="sr-only">
-                  Message
-                </Label>
+              <div className="space-y-3">
                 <Textarea
                   id="message"
-                  rows={4}
-                  className="bg-transparent border-b border-white/30 rounded-none px-0 text-white placeholder:text-gray-400 focus:ring-0 focus:border-cyan-400 resize-none"
+                  rows={3}
+                  placeholder={t("typeYourMessageHere")}
+                  className={`${underlineBase} resize-none`}
                   {...register("message", {
-                    required: "Message is required",
-                    minLength: { value: 10, message: "Min 10 characters" },
+                    required: t("messageRequired"),
+                    minLength: { value: 10, message: t("messageLength") },
                   })}
-                  placeholder="Type Your Message Here"
                 />
                 {errors.message && (
                   <p className="text-sm text-red-500">
@@ -199,82 +149,85 @@ const FeaturesSection = ({
                   </p>
                 )}
               </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] text-white font-semibold shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#0888A3] transform hover:scale-105 px-6 py-3 text-sm sm:text-base md:px-8 md:py-3 md:sm:px-10 md:sm:py-4 md:text-lg"
+                className="mt-5 w-full inline-flex items-center justify-center rounded-full bg-red-700 text-white font-semibold shadow-lg transition-colors duration-300 ease-in-out hover:bg-primary px-8 py-4 text-base"
               >
-                {isSubmitting ? "Sending..." : "SUBMIT INFORMATION"}
+                {isSubmitting ? t("sending") : t("submitInformation")}
               </button>
             </form>
           </div>
 
           {/* RIGHT INFO */}
-          <div className="text-white">
-            <h3 className="text-2xl font-bold mb-4">{data.location?.[lang]}</h3>
-            <p className="text-white/80 mb-8 max-w-md">
+          <div className="text-white max-w-[560px]">
+            <h3 className="text-3xl text-center md:text-left mb-12 font-title">
+              {data.location?.[lang]}
+            </h3>
+            <p className="text-white/50 text-center md:text-left mb-12 font-description">
               {data.description?.[lang]}
             </p>
 
-            <ul className="space-y-5 mb-10">
-              <li className="flex items-start gap-4">
-                <FaLocationDot className="mt-1 text-white text-3xl" />
-                <div>
+            <ul className="space-y-8 mb-12">
+              <li className="flex flex-col items-center md:items-start md:flex-row gap-4">
+                <FaLocationDot className="text-white text-4xl md:text-3xl" />
+                <div className="text-center md:text-left">
                   <p>{data.address?.[lang]}</p>
                 </div>
               </li>
-              <li className="flex items-center gap-4">
-                <BiSolidPhoneCall className="text-white text-3xl" />
-                <div className="flex gap-8">{data.phone}</div>
+              <li className="flex flex-col items-center md:items-center md:flex-row gap-4">
+                <BiSolidPhoneCall className="text-white text-4xl md:text-3xl" />
+                <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-center md:text-left">
+                  {data.phone}
+                </div>
               </li>
-              <li className="flex items-center gap-4">
-                <FaTelegramPlane className="text-white text-3xl" />
-                <span>{data.email}</span>
+              <li className="flex flex-col items-center md:items-center md:flex-row gap-4">
+                <FaTelegramPlane className="text-white text-4xl md:text-3xl" />
+                <span className="text-center md:text-left">{data.email}</span>
               </li>
             </ul>
-            <div className="flex items-center gap-5 text-white/80 text-lg">
-              <a href="#" className="hover:text-[#0888A3]">
+
+            <div className="flex items-center justify-center md:justify-start gap-5 text-white/80 text-lg">
+              <a
+                href="#"
+                className="hover:text-[#0888A3]"
+                aria-label="Facebook"
+              >
                 <FaFacebookF />
               </a>
-              <a href="#" className="hover:text-[#0888A3]">
+              <a href="#" className="hover:text-[#0888A3]" aria-label="X">
                 <FaXTwitter />
               </a>
-              <a href="#" className="hover:text-[#0888A3]">
+              <a
+                href="#"
+                className="hover:text-[#0888A3]"
+                aria-label="LinkedIn"
+              >
                 <FaLinkedinIn />
               </a>
-              <a href="#" className="hover:text-[#0888A3]">
+              <a
+                href="#"
+                className="hover:text-[#0888A3]"
+                aria-label="Instagram"
+              >
                 <FaInstagram />
               </a>
-              <a href="#" className="hover:text-[#0888A3]">
+              <a
+                href="#"
+                className="hover:text-[#0888A3]"
+                aria-label="Pinterest"
+              >
                 <FaPinterestP />
               </a>
-              <a href="#" className="hover:text-[#0888A3]">
+              <a
+                href="#"
+                className="hover:text-[#0888A3]"
+                aria-label="Google Plus"
+              >
                 <FaGooglePlusG />
               </a>
             </div>
-
-            {/* <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <FaMapMarkerAlt className="mt-1 text-cyan-400 shrink-0" />
-                <p></p>
-              </div>
-              <div className="flex items-start gap-3">
-                <FaPhone className="mt-1 text-cyan-400 shrink-0" />
-                <p>{data.phone}</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <FaPaperPlane className="mt-1 text-cyan-400 shrink-0" />
-                <p>{data.email}</p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 text-xl">
-              <FaFacebook className="hover:text-cyan-400 cursor-pointer" />
-              <FaLinkedin className="hover:text-cyan-400 cursor-pointer" />
-              <FaInstagram className="hover:text-cyan-400 cursor-pointer" />
-              <FaPinterest className="hover:text-cyan-400 cursor-pointer" />
-              <FaGooglePlusG className="hover:text-cyan-400 cursor-pointer" />
-            </div> */}
           </div>
         </div>
       </div>
