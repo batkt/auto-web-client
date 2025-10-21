@@ -87,14 +87,16 @@ export type Products = {
   productImage: string;
   name: MultiLanguageString;
   model: string;
+  title: MultiLanguageString;
+  secondaryTitle: MultiLanguageString;
   description: MultiLanguageString;
   price: string;
 };
 
 export type HomeQuoteData = BaseSectionDetailData & {
   backgroundImage: string;
-  title: MultiLanguageString;
-  secondaryTitle: MultiLanguageString;
+  buttonText: MultiLanguageString;
+
   items: Products[];
 };
 

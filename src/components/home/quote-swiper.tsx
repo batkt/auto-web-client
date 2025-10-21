@@ -164,10 +164,10 @@ export default function QuoteSwiper({
       <div className="relative mx-auto max-w-7xl py-16 z-0 flex flex-col items-center">
         {/* Томруулсан гарчигууд */}
         <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl font-title">
-          {data.title?.[lang]}
+          {activeItem?.title?.[lang]}
         </h2>
         <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
-          {data.secondaryTitle?.[lang]}
+          {activeItem?.secondaryTitle?.[lang]}
         </h3>
 
         {total > 0 && (
@@ -205,6 +205,9 @@ export default function QuoteSwiper({
                 nextSlideMessage: "Next slide",
               }}
               className="!overflow-visible relative z-10 pointer-events-auto"
+              onSwiper={(swiper) => {
+                setActiveIndex(swiper.realIndex);
+              }}
               onSlideChange={(sw) => setActiveIndex(sw.realIndex)}
             >
               {items.map((item, idx) => {
@@ -261,7 +264,7 @@ export default function QuoteSwiper({
                   onClick={() => openModal(activeIndex)}
                   className="mt-5 rounded-full bg-[#E84747] px-8 py-4 text-white font-semibold duration-500 ease-in-out hover:bg-[#0888A3] active:brightness-95 focus:outline-none focus:ring-2 focus:ring-white/60"
                 >
-                  View Detail
+                  {data.buttonText?.[lang]}
                 </button>
               </div>
             )}
@@ -277,13 +280,13 @@ export default function QuoteSwiper({
             <button
               aria-label="Close dialog"
               onClick={closeModal}
-              className="absolute inset-0 bg-black/70"
+              className="modal-backdrop absolute inset-0 bg-black/85"
             />
             {/* panel */}
             <div
               role="dialog"
               aria-modal="true"
-              className="relative z-[1001] w-[min(1080px,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-auto rounded-2xl bg-[#141414] text-white shadow-2xl"
+              className="modal-panel relative z-[1001] w-[min(1080px,calc(100vw-2rem))] max-h-[calc(100vh-2rem)] overflow-auto rounded-2xl bg-[#141414] text-white shadow-2xl"
             >
               {/* Close (X) */}
               <button
@@ -370,6 +373,35 @@ export default function QuoteSwiper({
         .quote-swiper .swiper-slide-active {
           transform: scale(1);
           opacity: 1;
+        }
+
+        /* Modal animations */
+        @keyframes modalBackdropIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes modalPanelIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .modal-backdrop {
+          animation: modalBackdropIn 300ms ease-out;
+        }
+
+        .modal-panel {
+          animation: modalPanelIn 300ms ease-out;
         }
       `}</style>
     </section>
