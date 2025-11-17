@@ -166,7 +166,7 @@ export default function QuoteSwiper({
         <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl font-title">
           {activeItem?.title?.[lang]}
         </h2>
-        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
+        <h3 className="mt-2 text-center font-extrabold text-[#F7B514] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
           {activeItem?.secondaryTitle?.[lang]}
         </h3>
 
@@ -262,7 +262,7 @@ export default function QuoteSwiper({
                   type="button"
                   aria-label="View Detail"
                   onClick={() => openModal(activeIndex)}
-                  className="mt-5 rounded-full bg-[#E84747] px-8 py-4 text-white font-semibold duration-500 ease-in-out hover:bg-[#0888A3] active:brightness-95 focus:outline-none focus:ring-2 focus:ring-white/60"
+                  className="mt-5 rounded-full bg-[#E84747] px-8 py-4 text-white font-semibold duration-500 ease-in-out hover:bg-[#F7B514] active:brightness-95 focus:outline-none focus:ring-2 focus:ring-white/60"
                 >
                   {data.buttonText?.[lang]}
                 </button>

@@ -77,7 +77,7 @@ const AboutSection = ({
               >
                 <p
                   className={`text-3xl sm:text-4xl lg:text-5xl font-bold ${
-                    index === 1 ? "text-red-600" : "text-[#0888A3]"
+                    index === 1 ? "text-[#E84747]" : "text-[#F7B514]"
                   }`}
                 >
                   {item.stat1 || item.stat2 || item.stat3}

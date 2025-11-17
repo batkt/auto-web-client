@@ -44,7 +44,7 @@ const HeroSection = ({
               <span className="block text-4xl sm:text-5xl lg:text-6xl whitespace-normal">
                 {data?.mainTitle?.[lang]}
               </span>
-              <span className="mt-1 block text-3xl sm:text-4xl lg:text-6xl text-[#0888A3] whitespace-normal">
+              <span className="mt-1 block text-3xl sm:text-4xl lg:text-6xl text-[#F7B514] whitespace-normal">
                 {data?.secondaryTitle?.[lang]}
               </span>
             </h1>
@@ -55,7 +55,7 @@ const HeroSection = ({
 
             {data?.ctaText?.[lang] && (
               <Link href={data?.ctaUrl}>
-                <button className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#0888A3] whitespace-normal font-sans">
+                <button className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e63946] px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg transition-colors duration-500 ease-in-out hover:bg-[#F7B514] whitespace-normal font-sans">
                   {data.ctaText[lang]}
                 </button>
               </Link>

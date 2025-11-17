@@ -47,7 +47,7 @@ const BlogSection = ({
         <h2 className="text-center font-extrabold text-white text-3xl sm:text-4xl md:mt-10 md:text-5xl lg:text-6xl font-title">
           {data.title?.[lang]}
         </h2>
-        <h3 className="mt-2 text-center font-extrabold text-[#0888A3] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
+        <h3 className="mt-2 text-center font-extrabold text-[#F7B514] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-title">
           {data.secondaryTitle?.[lang]}
         </h3>
 

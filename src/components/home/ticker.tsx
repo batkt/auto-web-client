@@ -36,13 +36,13 @@ export default function Ticker({
       )}
 
       {/* --- Container --- */}
-      <div className="relative w-full pt-4 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto flex flex-col items-center justify-center text-center min-h-[calc(100vh-120px)]">
+      <div className="relative w-full px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto flex flex-col items-center text-center py-16 sm:py-20">
         {/* Titles */}
         <div className="px-4 sm:px-6 md:px-10 ">
           <h2 className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold">
             {data.title?.[lang]}
           </h2>
-          <h3 className="text-[#0888A3] text-4xl sm:text-5xl md:text-6xl font-extrabold mt-2">
+          <h3 className="text-[#F7B514] text-4xl sm:text-5xl md:text-6xl font-extrabold mt-2">
             {data.secondaryTitle?.[lang]}
           </h3>
         </div>
@@ -54,6 +54,7 @@ export default function Ticker({
               modules={[Autoplay, Pagination]}
               autoplay={{ delay: 3500, disableOnInteraction: false }}
               pagination={{ clickable: true }}
+              loop
               slidesPerGroup={1}
               breakpoints={{
                 0: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 16 },
@@ -90,7 +91,7 @@ export default function Ticker({
 
                     <figcaption
                       className={`mt-3 font-semibold ${
-                        idx % 2 === 1 ? "text-red-500" : "text-[#0aa3b8]"
+                        idx % 2 === 1 ? "text-red-500" : "text-[#F7B514]"
                       }`}
                     >
                       {q.proName}

@@ -58,25 +58,25 @@ const FeaturesSection = ({
   return (
     <section
       id="contact"
-      className="relative min-h-screen w-full bg-[#111]"
+      className="relative w-full bg-[#111]"
       style={{
         backgroundImage: `url(${getImageUrl(data.backgroundImage)})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="mx-auto max-w-7xl px-6 pt-20 md:px-10">
+      <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
         <div className="mb-4">
           <p className="text-white text-center md:text-left text-3xl md:text-5xl font-extrabold font-title">
             {data.title?.[lang]}
           </p>
-          <p className="text-[#0888A3] mb-20 text-center md:text-left text-3xl md:text-5xl font-extrabold mt-2 font-title">
+          <p className="text-[#F7B514] mb-20 text-center md:text-left text-3xl md:text-5xl font-extrabold mt-2 font-title">
             {data.secondaryTitle?.[lang]}
           </p>
         </div>
 
         {/* layout */}
-        <div className="grid grid-cols-1 gap-20 md:grid-cols-2 pb-24">
+        <div className="grid grid-cols-1 gap-20 md:grid-cols-2">
           {/* LEFT FORM */}
           <div className="max-w-[460px]">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -191,38 +191,38 @@ const FeaturesSection = ({
             <div className="flex items-center justify-center md:justify-start gap-5 text-white/80 text-lg">
               <a
                 href="#"
-                className="hover:text-[#0888A3]"
+                className="hover:text-[#F7B514]"
                 aria-label="Facebook"
               >
                 <FaFacebookF />
               </a>
-              <a href="#" className="hover:text-[#0888A3]" aria-label="X">
+              <a href="#" className="hover:text-[#F7B514]" aria-label="X">
                 <FaXTwitter />
               </a>
               <a
                 href="#"
-                className="hover:text-[#0888A3]"
+                className="hover:text-[#F7B514]"
                 aria-label="LinkedIn"
               >
                 <FaLinkedinIn />
               </a>
               <a
                 href="#"
-                className="hover:text-[#0888A3]"
+                className="hover:text-[#F7B514]"
                 aria-label="Instagram"
               >
                 <FaInstagram />
               </a>
               <a
                 href="#"
-                className="hover:text-[#0888A3]"
+                className="hover:text-[#F7B514]"
                 aria-label="Pinterest"
               >
                 <FaPinterestP />
               </a>
               <a
                 href="#"
-                className="hover:text-[#0888A3]"
+                className="hover:text-[#F7B514]"
                 aria-label="Google Plus"
               >
                 <FaGooglePlusG />
