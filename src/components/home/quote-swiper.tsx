@@ -149,7 +149,7 @@ export default function QuoteSwiper({
   }, [isModalOpen, closeModal, modalPrev, modalNext]);
 
   return (
-    <section id="products" className="relative w-full overflow-hidden isolate">
+    <section id="#" className="relative w-full overflow-hidden isolate">
       {bgUrl ? (
         <Image
           src={bgUrl}

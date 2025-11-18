@@ -2,7 +2,7 @@
 "use client";
 
 import { cn, handleSmoothScroll } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaXmark } from "react-icons/fa6";
@@ -22,6 +22,7 @@ const Header = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
   const pathname = usePathname();
   const nowDate = new Date();
   const t = useTranslations("footerTranslation");
@@ -156,7 +157,13 @@ const Header = ({
                     <Link
                       href={href}
                       onClick={(e) => {
-                        if (handleSmoothScroll(href, setIsMobileMenuOpen)) {
+                        if (
+                          handleSmoothScroll(
+                            href,
+                            router,
+                            setIsMobileMenuOpen
+                          )
+                        ) {
                           e.preventDefault();
                         }
                       }}

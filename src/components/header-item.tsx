@@ -1,7 +1,7 @@
 "use client";
 
 import { cn, getImageUrl, handleSmoothScroll } from "@/lib/utils";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "./ui/button";
 import { FaBars } from "react-icons/fa6";
 import { HeaderData, LanguageKey } from "@/lib/types/data.types";
@@ -25,6 +25,8 @@ const HeaderItems = ({
   lang,
   dark = true,
 }: HeaderItemsProps) => {
+  const router = useRouter();
+
   return (
     <div className={cn("h-full container max-w-6xl px-6 mx-auto", className)}>
       <div className="flex justify-between items-center size-full">
@@ -48,7 +50,7 @@ const HeaderItems = ({
                   href={menu.path}
                   className="py-4 hover:text-primary font-semibold text-m transition-colors"
                   onClick={(e) => {
-                    if (handleSmoothScroll(menu.path)) {
+                    if (handleSmoothScroll(menu.path, router)) {
                       e.preventDefault();
                     }
                   }}

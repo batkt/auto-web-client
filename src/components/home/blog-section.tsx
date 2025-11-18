@@ -29,7 +29,10 @@ const BlogSection = ({
   const bgUrl = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "";
 
   return (
-    <section id="about" className="relative w-full overflow-hidden bg-[#111]">
+    <section
+      id="products"
+      className="relative w-full overflow-hidden bg-[#111]"
+    >
       {bgUrl && (
         <>
           <Image
@@ -51,7 +54,11 @@ const BlogSection = ({
           {data.secondaryTitle?.[lang]}
         </h3>
 
-        <p className="mx-auto text-center text-white/90 leading-relaxed mt-4 text-base sm:text-lg max-w-2xl md:mt-6 md:text-lg md:max-w-3xl lg:text-xl font-description">
+        <p
+          className="mx-auto text-justify text-white/90 leading-relaxed mt-4
+             text-base sm:text-lg md:mt-6 md:text-lg lg:text-xl
+             max-w-5xl lg:max-w-6xl font-description"
+        >
           {data?.description?.[lang]}
         </p>
 

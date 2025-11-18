@@ -18,13 +18,15 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
     <Card className="relative group overflow-hidden transition-shadow duration-300 bg-transparent shadow-none border-0 focus-visible:ring-0">
       {/* Image */}
       <div className="w-full overflow-hidden">
-        <Image
-          src={getImageUrl(blog.thumbImage)}
-          alt={blog.title}
-          width={400}
-          height={400}
-          className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        <Link href={`/blog/${blog._id}`} className="group/title">
+          <Image
+            src={getImageUrl(blog.thumbImage)}
+            alt={blog.title}
+            width={400}
+            height={400}
+            className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </Link>
       </div>
 
       <CardContent className="px-0 pt-4">
@@ -35,10 +37,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog }) => {
             </h3>
           </Link>
 
-          <div
-            className="mb-2 text-white text-center md:text-left overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] font-description"
-            dangerouslySetInnerHTML={{ __html: firstTextBlock?.content || "" }}
-          />
+          <Link href={`/blog/${blog._id}`} className="group/title">
+            <div
+              className="mb-2 text-white text-center md:text-left overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] font-description"
+              dangerouslySetInnerHTML={{
+                __html: firstTextBlock?.content || "",
+              }}
+            />
+          </Link>
           <Link href={`/blog/${blog._id}`} className="group/learn-more">
             <div className="text-white text-center md:text-left font-semibold transition-colors flex items-center justify-center md:justify-start gap-2 cursor-pointer group-hover/learn-more:text-red-600 group-hover/card:text-red-600">
               Learn More

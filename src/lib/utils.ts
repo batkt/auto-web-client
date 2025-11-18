@@ -2,6 +2,10 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { format } from "date-fns";
 
+type RouterLike = {
+  push: (href: string) => unknown;
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -65,14 +69,32 @@ export const smoothScrollToElement = (
 
 export const handleSmoothScroll = (
   href: string,
+  router?: RouterLike,
   setIsMobileMenuOpen?: (open: boolean) => void
 ) => {
-  // Check if it's an anchor link (starts with #)
-  if (href.startsWith("#")) {
-    const elementId = href.substring(1);
+  // Support both "#section" and "/#section" formats
+  const isHashLink = href.startsWith("#") || href.startsWith("/#");
+  if (!isHashLink) return false;
+
+  const elementId = href.replace(/^\/?#/, "");
+  const element = document.getElementById(elementId);
+
+  if (element) {
     smoothScrollToElement(elementId, 80); // 80px offset for header height
     setIsMobileMenuOpen?.(false);
     return true;
   }
+
+  // Navigate client-side to the hash without forcing a reload
+  if (router) {
+    router.push(`/#${elementId}`);
+
+    // After navigation, try scrolling again with offset
+    setTimeout(() => smoothScrollToElement(elementId, 80), 50);
+
+    setIsMobileMenuOpen?.(false);
+    return true;
+  }
+
   return false;
 };

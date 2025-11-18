@@ -21,7 +21,7 @@ const HeroSection = ({
     : undefined;
 
   return (
-    <section id="home" className="relative w-full overflow-hidden">
+    <section id="about" className="relative w-full overflow-hidden">
       {/* Background image (текстийн доор) */}
       {bgUrl && (
         <Image

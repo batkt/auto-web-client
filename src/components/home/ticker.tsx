@@ -23,7 +23,7 @@ export default function Ticker({
     : [];
 
   return (
-    <section id="reviews" className="relative w-full overflow-hidden">
+    <section id="stats" className="relative w-full overflow-hidden">
       {bg && (
         <Image
           src={bg}
@@ -60,16 +60,16 @@ export default function Ticker({
                 0: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 16 },
                 640: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 20 },
                 768: { slidesPerView: 2, slidesPerGroup: 1, spaceBetween: 24 },
-                1024: { slidesPerView: 3, slidesPerGroup: 1, spaceBetween: 24 },
+                1024: { slidesPerView: 5, slidesPerGroup: 1, spaceBetween: 24 },
               }}
               className="!pb-12"
             >
               {quotes.map((q, idx) => (
                 <SwiperSlide key={`${q.proName}-${idx}`}>
                   <figure className="group h-full flex flex-col items-center text-center">
-                    <div className="text-4xl sm:text-5xl text-white/40 mb-4">
+                    {/* <div className="text-4xl sm:text-5xl text-white/40 mb-4">
                       ”
-                    </div>
+                    </div> */}
 
                     <blockquote className="text-white text-base sm:text-lg leading-relaxed max-w-[36ch] sm:max-w-[40ch] mx-auto">
                       {q.proComment}
