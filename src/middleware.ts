@@ -22,9 +22,12 @@ export default function middleware(req: NextRequest) {
 
     newUrl.search = url.search;
     const res = NextResponse.redirect(newUrl);
-    res.cookies.set('NEXT_LOCALE', locale, {
-      path: '/',
+    res.cookies.set("NEXT_LOCALE", locale, {
+      path: "/",
       maxAge: 60 * 60 * 24 * 365, // 1 year
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
     });
     return res;
   }
