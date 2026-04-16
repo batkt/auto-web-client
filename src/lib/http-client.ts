@@ -8,6 +8,11 @@ const SERVER_BACKEND_URL = (process.env.SERVER_BACKEND_URL || "").replace(
   /\/+$/,
   ""
 );
+type ApiEnvelope<T> = {
+  code: number;
+  data: T;
+  message?: string;
+};
 
 const buildApiUrl = (url: string) => {
   const path = `/api${url}`;
@@ -40,7 +45,7 @@ const createHeaders = (
   };
 };
 
-const handleResponse = async (response: Response): Promise<any> => {
+const handleResponse = async <T>(response: Response): Promise<ResponseType<T>> => {
   const payload = await safeParseJSON(response);
 
   if (!response.ok) {
@@ -53,7 +58,13 @@ const handleResponse = async (response: Response): Promise<any> => {
     throw new Error("Expected JSON response but received non-JSON content.");
   }
 
-  return payload;
+  // Backend may return HTTP 200 with an application-level error code.
+  const apiPayload = payload as Partial<ApiEnvelope<T>>;
+  if (typeof apiPayload?.code === "number" && apiPayload.code >= 400) {
+    throw new Error(apiPayload?.message || `API Error ${apiPayload.code}`);
+  }
+
+  return apiPayload as ResponseType<T>;
 };
 
 const getRequest = async <T>(
@@ -72,7 +83,7 @@ const getRequest = async <T>(
     },
   });
 
-  return handleResponse(response);
+  return handleResponse<T>(response);
 };
 
 const postRequest = async <T>(
@@ -94,7 +105,7 @@ const postRequest = async <T>(
     body: JSON.stringify(data),
   });
 
-  return handleResponse(response);
+  return handleResponse<T>(response);
 };
 
 export { getRequest, postRequest };

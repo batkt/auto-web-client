@@ -29,14 +29,14 @@ export async function generateMetadata(
   const { locale } = await params;
   const lang = locale as LanguageKey;
   const pageResponse = await getRequest<PageDetailData>("/pages/detail/home");
-  const pageData = pageResponse.data;
+  const pageData = pageResponse?.data;
 
-  const name = pageData.name?.[lang];
-  const description = pageData.description?.[lang];
+  const name = pageData?.name?.[lang] || "Монгол Христийн Сүм";
+  const description = pageData?.description?.[lang] || "";
   return {
     title: name,
     description: description,
-    keywords: pageData.keywords || [],
+    keywords: pageData?.keywords || [],
     openGraph: {
       title: name,
       description: description,
