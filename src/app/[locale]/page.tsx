@@ -24,7 +24,6 @@ type Props = {
 };
 export const revalidate = 60;
 export async function generateMetadata(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   { params }: Props
 ): Promise<Metadata> {
   const { locale } = await params;
@@ -48,30 +47,33 @@ export async function generateMetadata(
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const lang = locale as LanguageKey;
+  const sectionPayload = <T,>(response: unknown) =>
+    ((response as { data?: { data?: unknown } } | null | undefined)?.data?.data ??
+      {}) as T;
 
   const heroResponse = await getRequest<SectionData>("/sections/home-hero");
-  const heroData = heroResponse.data.data as HomeHeroData;
+  const heroData = sectionPayload<HomeHeroData>(heroResponse);
   const missionResponse = await getRequest<SectionData>("/sections/home-stats");
-  const missionData = missionResponse.data.data as HomeMissionData;
+  const missionData = sectionPayload<HomeMissionData>(missionResponse);
   const galleryResponse = await getRequest<SectionData>(
     "/sections/home-quotes"
   );
-  const galleryData = galleryResponse.data.data as HomeGalleryData;
+  const galleryData = sectionPayload<HomeGalleryData>(galleryResponse);
   const helpResponse = await getRequest<SectionData>("/sections/home-contact");
-  const helpData = helpResponse.data.data as HomeHelpData;
+  const helpData = sectionPayload<HomeHelpData>(helpResponse);
 
   const quoteResponse = await getRequest<SectionData>(
     "/sections/home-products"
   );
-  const quoteData = quoteResponse.data.data as HomeQuoteData;
+  const quoteData = sectionPayload<HomeQuoteData>(quoteResponse);
 
   const blogResponse = await getRequest<SectionData>("/sections/home-blog");
-  const blogData = blogResponse.data.data as HomeBlogData;
+  const blogData = sectionPayload<HomeBlogData>(blogResponse);
 
   const blogListResponse = await getRequest<{ data: Blog[] }>(
     "/blogs?status=published&limit=3"
   );
-  const blogList = blogListResponse.data.data;
+  const blogList = blogListResponse?.data?.data ?? [];
 
   return (
     <div>
