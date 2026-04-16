@@ -1,7 +1,27 @@
-// import { BACKEND_URL } from './config';
-const BACKEND_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:4001";
 import { ResponseType } from "./types/http.types";
+
+const BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "").replace(
+  /\/+$/,
+  ""
+);
+
+const buildApiUrl = (url: string) => {
+  const path = `/api${url}`;
+  return BACKEND_URL ? `${BACKEND_URL}${path}` : path;
+};
+
+async function safeParseJSON(response: Response) {
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    return null;
+  }
+
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
 
 const createHeaders = (
   token?: string,
@@ -13,16 +33,20 @@ const createHeaders = (
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleResponse = async (response: Response): Promise<any> => {
+  const payload = await safeParseJSON(response);
+
   if (!response.ok) {
-    const error = await response.json();
     const errorMessage =
-      error?.message || `HTTP ${response.status}: ${response.statusText}`;
+      payload?.message || `HTTP ${response.status}: ${response.statusText}`;
     throw new Error(errorMessage);
   }
 
-  return await response.json();
+  if (payload === null) {
+    throw new Error("Expected JSON response but received non-JSON content.");
+  }
+
+  return payload;
 };
 
 const getRequest = async <T>(
@@ -32,7 +56,7 @@ const getRequest = async <T>(
 ): Promise<ResponseType<T>> => {
   const { headers, ...otherOptions } = options || {};
 
-  const response = await fetch(`${BACKEND_URL}/api${url}`, {
+  const response = await fetch(buildApiUrl(url), {
     ...otherOptions,
     headers: createHeaders(token, headers),
     method: "GET",
@@ -53,7 +77,7 @@ const postRequest = async <T>(
 ): Promise<ResponseType<T>> => {
   const { headers, ...otherOptions } = options || {};
 
-  const response = await fetch(`${BACKEND_URL}/api${url}`, {
+  const response = await fetch(buildApiUrl(url), {
     ...otherOptions,
     headers: createHeaders(token, {
       ...headers,

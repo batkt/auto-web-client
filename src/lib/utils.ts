@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
 export const getImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
-    return `${process.env.NEXT_PUBLIC_BACKEND_URL}${image}`;
+    return image;
   }
   return image;
 };
@@ -21,7 +21,7 @@ export const getImageUrl = (image: string) => {
 export const getClientImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
-    return `${process.env.NEXT_PUBLIC_BASE_URL}${image}`;
+    return image;
   }
   return image;
 };

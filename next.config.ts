@@ -29,9 +29,8 @@ const nextConfig: NextConfig = {
         pathname: "/uploads/**",
       },
       {
-        protocol: "http",
-        hostname: "103.143.40.184",
-        port: "4001",
+        protocol: "https",
+        hostname: "fixfab.mn",
         pathname: "/uploads/**",
       },
     ],
