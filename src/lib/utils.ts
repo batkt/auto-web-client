@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
 export const getImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
-    return image;
+    return `${process.env.NEXT_PUBLIC_BACKEND_URL}${image}`;
   }
   return image;
 };
@@ -21,7 +21,7 @@ export const getImageUrl = (image: string) => {
 export const getClientImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
-    return image;
+    return `${process.env.NEXT_PUBLIC_BASE_URL}${image}`;
   }
   return image;
 };
@@ -53,7 +53,7 @@ export const getEmbedUrl = (url: string): string | null => {
 
 export const smoothScrollToElement = (
   elementId: string,
-  offset: number = 0
+  offset: number = 0,
 ) => {
   const element = document.getElementById(elementId);
   if (element) {
@@ -70,7 +70,7 @@ export const smoothScrollToElement = (
 export const handleSmoothScroll = (
   href: string,
   router?: RouterLike,
-  setIsMobileMenuOpen?: (open: boolean) => void
+  setIsMobileMenuOpen?: (open: boolean) => void,
 ) => {
   // Support both "#section" and "/#section" formats
   const isHashLink = href.startsWith("#") || href.startsWith("/#");

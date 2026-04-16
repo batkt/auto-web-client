@@ -24,17 +24,16 @@ export async function generateMetadata(
   const lang = locale as LanguageKey;
 
   const pageResponse = await getRequest<PageDetailData>("/pages/detail/home");
-  const pageData = pageResponse?.data;
+  const pageData = pageResponse.data;
 
   const heroResponse = await getRequest<SectionData>("/sections/blog-hero");
-  const heroData =
-    (heroResponse?.data?.data as BlogHeroData | undefined) ?? ({} as BlogHeroData);
+  const heroData = heroResponse.data.data as BlogHeroData;
   const parentMetadata = await parent;
 
-  const title = pageData?.name?.[lang] || "Блог";
+  const title = pageData.name?.[lang];
   return {
     title: title,
-    description: pageData?.description?.[lang] || "",
+    description: pageData.description?.[lang],
     keywords: [
       "Монгол Христийн Сүм",
       "хандив",
@@ -51,7 +50,7 @@ export async function generateMetadata(
     openGraph: {
       images: [
         {
-          url: getImageUrl(heroData?.image || ""),
+          url: getImageUrl(heroData.image),
           width: 1200,
           height: 630,
           alt: title,
@@ -90,15 +89,13 @@ const BlogPage = async (props: {
       searchParamsUrl ? `&${searchParamsUrl}` : ""
     }`
   );
-  const blogList =
-    blogResponse?.data ?? ({ data: [], total: 0, totalPages: 0, currentPage: 1 } as const);
+  const blogList = blogResponse.data;
 
   const categoryResponse = await getRequest<Category[]>(`/categories/`);
-  const categories = categoryResponse?.data ?? [];
+  const categories = categoryResponse.data;
 
   const heroResponse = await getRequest<SectionData>(`/sections/blog-hero`);
-  const heroData =
-    (heroResponse?.data?.data as BlogHeroData | undefined) ?? ({} as BlogHeroData);
+  const heroData = heroResponse.data.data as BlogHeroData;
 
   return (
     <>

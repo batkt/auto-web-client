@@ -24,19 +24,20 @@ type Props = {
 };
 export const revalidate = 60;
 export async function generateMetadata(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   { params }: Props
 ): Promise<Metadata> {
   const { locale } = await params;
   const lang = locale as LanguageKey;
   const pageResponse = await getRequest<PageDetailData>("/pages/detail/home");
-  const pageData = pageResponse?.data;
+  const pageData = pageResponse.data;
 
-  const name = pageData?.name?.[lang] || "Монгол Христийн Сүм";
-  const description = pageData?.description?.[lang] || "";
+  const name = pageData.name?.[lang];
+  const description = pageData.description?.[lang];
   return {
     title: name,
     description: description,
-    keywords: pageData?.keywords || [],
+    keywords: pageData.keywords || [],
     openGraph: {
       title: name,
       description: description,
@@ -47,33 +48,30 @@ export async function generateMetadata(
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const lang = locale as LanguageKey;
-  const sectionPayload = <T,>(response: unknown) =>
-    ((response as { data?: { data?: unknown } } | null | undefined)?.data?.data ??
-      {}) as T;
 
   const heroResponse = await getRequest<SectionData>("/sections/home-hero");
-  const heroData = sectionPayload<HomeHeroData>(heroResponse);
+  const heroData = heroResponse.data.data as HomeHeroData;
   const missionResponse = await getRequest<SectionData>("/sections/home-stats");
-  const missionData = sectionPayload<HomeMissionData>(missionResponse);
+  const missionData = missionResponse.data.data as HomeMissionData;
   const galleryResponse = await getRequest<SectionData>(
     "/sections/home-quotes"
   );
-  const galleryData = sectionPayload<HomeGalleryData>(galleryResponse);
+  const galleryData = galleryResponse.data.data as HomeGalleryData;
   const helpResponse = await getRequest<SectionData>("/sections/home-contact");
-  const helpData = sectionPayload<HomeHelpData>(helpResponse);
+  const helpData = helpResponse.data.data as HomeHelpData;
 
   const quoteResponse = await getRequest<SectionData>(
     "/sections/home-products"
   );
-  const quoteData = sectionPayload<HomeQuoteData>(quoteResponse);
+  const quoteData = quoteResponse.data.data as HomeQuoteData;
 
   const blogResponse = await getRequest<SectionData>("/sections/home-blog");
-  const blogData = sectionPayload<HomeBlogData>(blogResponse);
+  const blogData = blogResponse.data.data as HomeBlogData;
 
   const blogListResponse = await getRequest<{ data: Blog[] }>(
     "/blogs?status=published&limit=3"
   );
-  const blogList = blogListResponse?.data?.data ?? [];
+  const blogList = blogListResponse.data.data;
 
   return (
     <div>
