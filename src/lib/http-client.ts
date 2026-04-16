@@ -4,9 +4,16 @@ const BACKEND_URL = (process.env.NEXT_PUBLIC_BACKEND_URL || "").replace(
   /\/+$/,
   ""
 );
+const SERVER_BACKEND_URL = (process.env.SERVER_BACKEND_URL || "").replace(
+  /\/+$/,
+  ""
+);
 
 const buildApiUrl = (url: string) => {
   const path = `/api${url}`;
+  if (typeof window === "undefined" && SERVER_BACKEND_URL) {
+    return `${SERVER_BACKEND_URL}${path}`;
+  }
   return BACKEND_URL ? `${BACKEND_URL}${path}` : path;
 };
 
