@@ -24,20 +24,24 @@ type Props = {
 };
 export const revalidate = 60;
 export async function generateMetadata(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   { params }: Props
 ): Promise<Metadata> {
   const { locale } = await params;
   const lang = locale as LanguageKey;
-  const pageResponse = await getRequest<PageDetailData>("/pages/detail/home");
-  const pageData = pageResponse.data;
+  let pageData: PageDetailData | null = null;
+  try {
+    const pageResponse = await getRequest<PageDetailData>("/pages/detail/home");
+    pageData = pageResponse?.data ?? null;
+  } catch {
+    pageData = null;
+  }
 
-  const name = pageData.name?.[lang];
-  const description = pageData.description?.[lang];
+  const name = pageData?.name?.[lang] || "FixFab";
+  const description = pageData?.description?.[lang] || "";
   return {
     title: name,
     description: description,
-    keywords: pageData.keywords || [],
+    keywords: pageData?.keywords || [],
     openGraph: {
       title: name,
       description: description,
@@ -48,30 +52,33 @@ export async function generateMetadata(
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   const lang = locale as LanguageKey;
+  const sectionPayload = <T,>(response: unknown) =>
+    ((response as { data?: { data?: unknown } } | null | undefined)?.data?.data ??
+      {}) as T;
 
-  const heroResponse = await getRequest<SectionData>("/sections/home-hero");
-  const heroData = heroResponse.data.data as HomeHeroData;
-  const missionResponse = await getRequest<SectionData>("/sections/home-stats");
-  const missionData = missionResponse.data.data as HomeMissionData;
-  const galleryResponse = await getRequest<SectionData>(
-    "/sections/home-quotes"
+  const heroData = sectionPayload<HomeHeroData>(
+    await getRequest<SectionData>("/sections/home-hero").catch(() => null)
   );
-  const galleryData = galleryResponse.data.data as HomeGalleryData;
-  const helpResponse = await getRequest<SectionData>("/sections/home-contact");
-  const helpData = helpResponse.data.data as HomeHelpData;
-
-  const quoteResponse = await getRequest<SectionData>(
-    "/sections/home-products"
+  const missionData = sectionPayload<HomeMissionData>(
+    await getRequest<SectionData>("/sections/home-stats").catch(() => null)
   );
-  const quoteData = quoteResponse.data.data as HomeQuoteData;
-
-  const blogResponse = await getRequest<SectionData>("/sections/home-blog");
-  const blogData = blogResponse.data.data as HomeBlogData;
+  const galleryData = sectionPayload<HomeGalleryData>(
+    await getRequest<SectionData>("/sections/home-quotes").catch(() => null)
+  );
+  const helpData = sectionPayload<HomeHelpData>(
+    await getRequest<SectionData>("/sections/home-contact").catch(() => null)
+  );
+  const quoteData = sectionPayload<HomeQuoteData>(
+    await getRequest<SectionData>("/sections/home-products").catch(() => null)
+  );
+  const blogData = sectionPayload<HomeBlogData>(
+    await getRequest<SectionData>("/sections/home-blog").catch(() => null)
+  );
 
   const blogListResponse = await getRequest<{ data: Blog[] }>(
     "/blogs?status=published&limit=3"
-  );
-  const blogList = blogListResponse.data.data;
+  ).catch(() => null);
+  const blogList = blogListResponse?.data?.data ?? [];
 
   return (
     <div>

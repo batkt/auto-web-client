@@ -65,8 +65,11 @@ export default async function RootLayout({
     notFound();
   }
 
-  const headerResponse = await getRequest<SectionData>("/sections/header");
-  const headerData = headerResponse.data.data as HeaderData;
+  const headerResponse = await getRequest<SectionData>("/sections/header").catch(
+    () => null
+  );
+  const headerData =
+    (headerResponse?.data?.data as HeaderData | undefined) ?? ({} as HeaderData);
 
   const messages = await getMessages();
 
