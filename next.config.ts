@@ -34,6 +34,16 @@ const nextConfig: NextConfig = {
         port: "4001",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "fixfab.mn",
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.fixfab.mn",
+        pathname: "/uploads/**",
+      },
     ],
   },
   async headers() {

@@ -22,7 +22,8 @@ export const getImageUrl = (image: string) => {
 export const getClientImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
-    return `${process.env.NEXT_PUBLIC_BASE_URL}${image}`;
+    const base = (process.env.NEXT_PUBLIC_BASE_URL || "").replace(/\/+$/, "");
+    return base ? `${base}${image}` : image;
   }
   return image;
 };
