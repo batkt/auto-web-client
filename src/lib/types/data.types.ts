@@ -114,6 +114,8 @@ export type HomeVideoData = {
   title: MultiLanguageString;
   description: MultiLanguageString;
   videoUrl: string;
+  /** Optional section background (same as other home blocks) */
+  backgroundImage?: string;
   /** Legacy / alternate field name */
   youtubeUrl?: string;
 };

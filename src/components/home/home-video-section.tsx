@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { LanguageKey, HomeVideoData } from "@/lib/types/data.types";
-import { getEmbedUrl } from "@/lib/utils";
+import { getEmbedUrl, getImageUrl } from "@/lib/utils";
 
 function pickVideoUrl(raw: HomeVideoData & { youtubeUrl?: string }): string {
   const v =
@@ -21,12 +22,27 @@ const HomeVideoSection = ({
 }) => {
   const videoUrl = pickVideoUrl(data);
   const embed = videoUrl ? getEmbedUrl(videoUrl) : null;
+  const bgUrl = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "";
 
   return (
     <section
       id="video"
       className="relative w-full min-w-0 self-stretch overflow-hidden bg-[#111] py-16 md:py-24"
     >
+      {bgUrl ? (
+        <>
+          <Image
+            src={bgUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center pointer-events-none select-none z-0"
+            priority={false}
+          />
+          <div className="absolute inset-0 z-[1] bg-black/60" aria-hidden />
+        </>
+      ) : null}
+
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 text-center sm:px-6 lg:px-10">
         {data?.title?.[lang] ? (
           <h2 className="text-3xl font-extrabold text-white font-title md:text-5xl">
