@@ -10,6 +10,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** User uploads live under /uploads (relative or on any absolute URL). */
+export function isUploadsAssetUrl(url: string): boolean {
+  const s = url.trim();
+  if (!s) return false;
+  if (s.startsWith("/uploads")) return true;
+  try {
+    return new URL(s).pathname.startsWith("/uploads");
+  } catch {
+    return false;
+  }
+}
+
 export const getImageUrl = (image: string) => {
   if (!image) return "";
   if (image.startsWith("/uploads")) {
