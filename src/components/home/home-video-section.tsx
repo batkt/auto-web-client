@@ -2,7 +2,8 @@
 
 import React from "react";
 import { LanguageKey, HomeVideoData } from "@/lib/types/data.types";
-import { getEmbedUrl, getImageUrl } from "@/lib/utils";
+import { getEmbedUrl } from "@/lib/utils";
+import { SiteImage } from "@/components/ui/site-image";
 
 function pickVideoUrl(raw: HomeVideoData & { youtubeUrl?: string }): string {
   const v =
@@ -23,22 +24,20 @@ const HomeVideoSection = ({
   const embed = videoUrl ? getEmbedUrl(videoUrl) : null;
   const rawBg =
     typeof data?.backgroundImage === "string" ? data.backgroundImage.trim() : "";
-  const bgUrl = rawBg ? getImageUrl(rawBg) : "";
 
   return (
     <section
       id="video"
       className="relative w-full min-h-[280px] min-w-0 self-stretch overflow-hidden bg-[#111] py-16 md:min-h-[360px] md:py-24"
     >
-      {bgUrl ? (
+      {rawBg ? (
         <>
-          {/* Native img: works for /uploads (same-origin) and any CMS URL without next/image remotePatterns */}
-          <img
-            src={bgUrl}
+          <SiteImage
+            src={rawBg}
             alt=""
-            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center select-none"
-            loading="lazy"
-            decoding="async"
+            fill
+            sizes="100vw"
+            className="pointer-events-none z-0 object-cover object-center select-none"
           />
           <div className="absolute inset-0 z-[1] bg-black/60" aria-hidden />
         </>
