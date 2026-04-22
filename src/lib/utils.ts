@@ -10,22 +10,53 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * In production, CMS may still store full URLs to an old backend IP for /uploads.
+ * Next.js image optimizer then fetches that host and gets 404. Rewrite to same-origin path.
+ */
+function rewriteLegacyUploadUrlForProduction(src: string): string {
+  if (process.env.NODE_ENV !== "production") return src;
+  if (!/^https?:\/\//i.test(src)) return src;
+  try {
+    const u = new URL(src);
+    if (!u.pathname.startsWith("/uploads")) return src;
+    if (u.hostname === "103.143.40.184") {
+      return `${u.pathname}${u.search}`;
+    }
+  } catch {
+    /* ignore */
+  }
+  return src;
+}
+
 export const getImageUrl = (image: string) => {
   if (!image) return "";
-  if (image.startsWith("/uploads")) {
+  const trimmed = image.trim();
+  const resolved = rewriteLegacyUploadUrlForProduction(trimmed);
+
+  if (resolved.startsWith("/uploads")) {
+    if (process.env.NODE_ENV === "production") {
+      return resolved;
+    }
     const base = (process.env.NEXT_PUBLIC_BACKEND_URL || "").replace(/\/+$/, "");
-    return base ? `${base}${image}` : image;
+    return base ? `${base}${resolved}` : resolved;
   }
-  return image;
+  return resolved;
 };
 
 export const getClientImageUrl = (image: string) => {
   if (!image) return "";
-  if (image.startsWith("/uploads")) {
+  const trimmed = image.trim();
+  const resolved = rewriteLegacyUploadUrlForProduction(trimmed);
+
+  if (resolved.startsWith("/uploads")) {
+    if (process.env.NODE_ENV === "production") {
+      return resolved;
+    }
     const base = (process.env.NEXT_PUBLIC_BASE_URL || "").replace(/\/+$/, "");
-    return base ? `${base}${image}` : image;
+    return base ? `${base}${resolved}` : resolved;
   }
-  return image;
+  return resolved;
 };
 
 export const queryStringBuilder = (params: Record<string, string>) => {
