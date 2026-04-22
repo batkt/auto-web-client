@@ -21,6 +21,7 @@ import { LanguageKey, HomeHelpData } from "@/lib/types/data.types";
 import { getImageUrl } from "@/lib/utils";
 import { saveMessage } from "@/lib/action";
 import { ContactFormData } from "@/lib/types/contact.types";
+import Image from "next/image";
 
 const underlineBase =
   // Яагаад: нэг хэв маягийг бүх талбарт тогтвортой хэрэглэхийн тулд.
@@ -55,17 +56,33 @@ const FeaturesSection = ({
     }
   };
 
+  const bgUrl = data?.backgroundImage
+    ? getImageUrl(data.backgroundImage)
+    : "";
+
   return (
     <section
       id="contact"
-      className="relative w-full bg-[#111]"
-      style={{
-        backgroundImage: `url(${getImageUrl(data.backgroundImage)})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="relative w-full overflow-hidden bg-[#111] min-h-[480px] md:min-h-[560px]"
     >
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
+      {bgUrl ? (
+        <>
+          <Image
+            src={bgUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover object-center pointer-events-none select-none z-0"
+            priority={false}
+          />
+          <div
+            className="absolute inset-0 z-[1] bg-black/65"
+            aria-hidden
+          />
+        </>
+      ) : null}
+
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20">
         <div className="mb-4">
           <p className="text-white text-center md:text-left text-3xl md:text-5xl font-extrabold font-title">
             {data.title?.[lang]}
