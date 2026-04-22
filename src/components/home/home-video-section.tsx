@@ -2,8 +2,7 @@
 
 import React from "react";
 import { LanguageKey, HomeVideoData } from "@/lib/types/data.types";
-import { getEmbedUrl } from "@/lib/utils";
-import { SiteImage } from "@/components/ui/site-image";
+import { getEmbedUrl, getImageUrl } from "@/lib/utils";
 
 function pickVideoUrl(raw: HomeVideoData & { youtubeUrl?: string }): string {
   const v =
@@ -24,20 +23,23 @@ const HomeVideoSection = ({
   const embed = videoUrl ? getEmbedUrl(videoUrl) : null;
   const rawBg =
     typeof data?.backgroundImage === "string" ? data.backgroundImage.trim() : "";
+  // Video section only: plain img so the browser fetches the URL (not next/image’s optimizer).
+  const bgUrl = rawBg ? getImageUrl(rawBg) : "";
 
   return (
     <section
       id="video"
       className="relative w-full min-h-[280px] min-w-0 self-stretch overflow-hidden bg-[#111] py-16 md:min-h-[360px] md:py-24"
     >
-      {rawBg ? (
+      {bgUrl ? (
         <>
-          <SiteImage
-            src={rawBg}
+          {/* eslint-disable-next-line @next/next/no-img-element -- video BG: browser fetch avoids optimizer/upstream issues */}
+          <img
+            src={bgUrl}
             alt=""
-            fill
-            sizes="100vw"
-            className="pointer-events-none z-0 object-cover object-center select-none"
+            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center select-none"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 z-[1] bg-black/60" aria-hidden />
         </>
