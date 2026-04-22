@@ -114,6 +114,8 @@ export type HomeVideoData = {
   title: MultiLanguageString;
   description: MultiLanguageString;
   videoUrl: string;
+  /** Legacy / alternate field name */
+  youtubeUrl?: string;
 };
 
 export type AboutHeroData = BaseSectionDetailData & {
