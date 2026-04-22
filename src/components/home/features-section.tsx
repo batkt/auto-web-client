@@ -18,7 +18,7 @@ import {
   FaGooglePlusG,
 } from "react-icons/fa";
 import { LanguageKey, HomeHelpData } from "@/lib/types/data.types";
-import { getImageUrl } from "@/lib/utils";
+import { getEmbedUrl, getImageUrl } from "@/lib/utils";
 import { saveMessage } from "@/lib/action";
 import { ContactFormData } from "@/lib/types/contact.types";
 import Image from "next/image";
@@ -59,6 +59,9 @@ const FeaturesSection = ({
   const bgUrl = data?.backgroundImage
     ? getImageUrl(data.backgroundImage)
     : "";
+  const youtubeEmbed = data?.youtubeUrl
+    ? getEmbedUrl(data.youtubeUrl)
+    : null;
 
   return (
     <section
@@ -87,10 +90,26 @@ const FeaturesSection = ({
           <p className="text-white text-center md:text-left text-3xl md:text-5xl font-extrabold font-title">
             {data.title?.[lang]}
           </p>
-          <p className="text-[#F7B514] mb-20 text-center md:text-left text-3xl md:text-5xl font-extrabold mt-2 font-title">
+          <p className="text-[#F7B514] mb-8 text-center md:text-left text-3xl md:text-5xl font-extrabold mt-2 font-title">
             {data.secondaryTitle?.[lang]}
           </p>
         </div>
+
+        {youtubeEmbed ? (
+          <div className="mb-12 w-full max-w-4xl mx-auto md:mx-0 md:max-w-none">
+            <div className="relative w-full aspect-video overflow-hidden rounded-lg bg-black/40 ring-1 ring-white/10">
+              <iframe
+                src={youtubeEmbed}
+                title="YouTube"
+                className="absolute inset-0 h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </div>
+        ) : null}
 
         {/* layout */}
         <div className="grid grid-cols-1 gap-20 md:grid-cols-2">

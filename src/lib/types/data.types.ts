@@ -77,6 +77,8 @@ export type HomeHelpData = {
   location: MultiLanguageString;
   description: MultiLanguageString;
   backgroundImage: string;
+  /** YouTube watch, youtu.be, shorts, or embed URL — optional */
+  youtubeUrl?: string;
 
   address: MultiLanguageString;
   phone: string;
@@ -105,6 +107,13 @@ export type HomeBlogData = {
   secondaryTitle: MultiLanguageString;
   description: MultiLanguageString;
   backgroundImage: string;
+};
+
+/** Home page video block — title, description, YouTube URL */
+export type HomeVideoData = {
+  title: MultiLanguageString;
+  description: MultiLanguageString;
+  videoUrl: string;
 };
 
 export type AboutHeroData = BaseSectionDetailData & {

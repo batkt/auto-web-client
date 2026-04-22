@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import AboutSection from "@/components/home/about-section";
 import BlogSection from "@/components/home/blog-section";
 import FeaturesSection from "@/components/home/features-section";
+import HomeVideoSection from "@/components/home/home-video-section";
 import HeroSection from "@/components/home/hero-section";
 import QuoteSwiper from "@/components/home/quote-swiper";
 import Ticker from "@/components/home/ticker";
@@ -13,6 +14,7 @@ import {
   HomeHeroData,
   HomeMissionData,
   HomeQuoteData,
+  HomeVideoData,
   LanguageKey,
   PageDetailData,
   SectionData,
@@ -65,6 +67,9 @@ export default async function Home({ params }: Props) {
   const galleryData = sectionPayload<HomeGalleryData>(
     await getRequest<SectionData>("/sections/home-quotes").catch(() => null)
   );
+  const videoData = sectionPayload<HomeVideoData>(
+    await getRequest<SectionData>("/sections/home-video").catch(() => null)
+  );
   const helpData = sectionPayload<HomeHelpData>(
     await getRequest<SectionData>("/sections/home-contact").catch(() => null)
   );
@@ -94,6 +99,7 @@ export default async function Home({ params }: Props) {
         <AboutSection lang={lang} data={missionData} />
 
         <Ticker lang={lang} data={galleryData} />
+        <HomeVideoSection lang={lang} data={videoData} />
         <FeaturesSection lang={lang} data={helpData} />
       </main>
     </div>
