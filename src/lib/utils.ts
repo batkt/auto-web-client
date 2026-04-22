@@ -10,80 +10,22 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/**
- * In production, CMS may still store full URLs to an old backend IP for /uploads.
- * Next.js image optimizer then fetches that host and gets 404. Rewrite to same-origin path.
- */
-function rewriteLegacyUploadUrlForProduction(src: string): string {
-  if (process.env.NODE_ENV !== "production") return src;
-  if (!/^https?:\/\//i.test(src)) return src;
-  try {
-    const u = new URL(src);
-    if (!u.pathname.startsWith("/uploads")) return src;
-    if (u.hostname === "103.143.40.184") {
-      return `${u.pathname}${u.search}`;
-    }
-  } catch {
-    /* ignore */
-  }
-  return src;
-}
-
-/** Bases that must not be used for next/image in production (optimizer 404 / unreachable). */
-function isInternalUploadBase(base: string): boolean {
-  const t = base.trim().toLowerCase();
-  if (!t) return true;
-  try {
-    const u = new URL(t);
-    const h = u.hostname;
-    return (
-      h === "127.0.0.1" ||
-      h === "localhost" ||
-      h === "backend" ||
-      h === "103.143.40.184"
-    );
-  } catch {
-    return true;
-  }
-}
-
-function resolveUploadsPath(path: string, base: string): string {
-  const b = base.replace(/\/+$/, "");
-  if (process.env.NODE_ENV !== "production") {
-    return b ? `${b}${path}` : path;
-  }
-  if (b && !isInternalUploadBase(b)) {
-    return `${b}${path}`;
-  }
-  return path;
-}
-
 export const getImageUrl = (image: string) => {
   if (!image) return "";
-  const trimmed = image.trim();
-  const resolved = rewriteLegacyUploadUrlForProduction(trimmed);
-
-  if (resolved.startsWith("/uploads")) {
+  if (image.startsWith("/uploads")) {
     const base = (process.env.NEXT_PUBLIC_BACKEND_URL || "").replace(/\/+$/, "");
-    return resolveUploadsPath(resolved, base);
+    return base ? `${base}${image}` : image;
   }
-  return resolved;
+  return image;
 };
 
 export const getClientImageUrl = (image: string) => {
   if (!image) return "";
-  const trimmed = image.trim();
-  const resolved = rewriteLegacyUploadUrlForProduction(trimmed);
-
-  if (resolved.startsWith("/uploads")) {
-    const base = (
-      process.env.NEXT_PUBLIC_BASE_URL ||
-      process.env.NEXT_PUBLIC_BACKEND_URL ||
-      ""
-    ).replace(/\/+$/, "");
-    return resolveUploadsPath(resolved, base);
+  if (image.startsWith("/uploads")) {
+    const base = (process.env.NEXT_PUBLIC_BASE_URL || "").replace(/\/+$/, "");
+    return base ? `${base}${image}` : image;
   }
-  return resolved;
+  return image;
 };
 
 export const queryStringBuilder = (params: Record<string, string>) => {
