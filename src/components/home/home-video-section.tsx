@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { LanguageKey, HomeVideoData } from "@/lib/types/data.types";
 import { getEmbedUrl, getImageUrl } from "@/lib/utils";
 
@@ -22,22 +21,24 @@ const HomeVideoSection = ({
 }) => {
   const videoUrl = pickVideoUrl(data);
   const embed = videoUrl ? getEmbedUrl(videoUrl) : null;
-  const bgUrl = data?.backgroundImage ? getImageUrl(data.backgroundImage) : "";
+  const rawBg =
+    typeof data?.backgroundImage === "string" ? data.backgroundImage.trim() : "";
+  const bgUrl = rawBg ? getImageUrl(rawBg) : "";
 
   return (
     <section
       id="video"
-      className="relative w-full min-w-0 self-stretch overflow-hidden bg-[#111] py-16 md:py-24"
+      className="relative w-full min-h-[280px] min-w-0 self-stretch overflow-hidden bg-[#111] py-16 md:min-h-[360px] md:py-24"
     >
       {bgUrl ? (
         <>
-          <Image
+          {/* Native img: works for /uploads (same-origin) and any CMS URL without next/image remotePatterns */}
+          <img
             src={bgUrl}
             alt=""
-            fill
-            sizes="100vw"
-            className="object-cover object-center pointer-events-none select-none z-0"
-            priority={false}
+            className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover object-center select-none"
+            loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 z-[1] bg-black/60" aria-hidden />
         </>
